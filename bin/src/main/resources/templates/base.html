@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	th:fragment="layout(content)">
-
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -10,23 +9,42 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-	integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" type="text/css" href="/css/base.css">
-<link rel="stylesheet" href="css/mcss/mdb.min.css" />
-
+	<link rel="stylesheet" type="text/css" href="/css/base.css">
 </head>
-
 <body>
 	<!-- As a link -->
-	<nav class="navbar bg-success bg-gradient bg-opacity-25">
+	<nav class="navbar">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Navbar</a>
 		</div>
 	</nav>
+	
+	<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://cdn.pixabay.com/photo/2018/09/30/16/26/sun-3713835_1280.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://cdn.pixabay.com/photo/2019/03/09/02/12/eyes-4043559_1280.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
 
 	<div th:replace="${content}"></div>
@@ -139,7 +157,7 @@
 		<!-- Copyright -->
 		<div class="text-center p-4"
 			style="background-color: rgba(0, 0, 0, 0.05);">
-			ï¿½ 2021 Copyright: <a class="text-reset fw-bold"
+			© 2021 Copyright: <a class="text-reset fw-bold"
 				href="https://mdbootstrap.com/">MDBootstrap.com</a>
 		</div>
 		<!-- Copyright -->
@@ -149,11 +167,5 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
-
-	<!-- MDB -->
-	<script type="text/javascript" src="js/mjs/mdb.umd.min.js"></script>
-	<!-- Custom scripts -->
-	<script type="text/javascript"></script>
 </body>
-
 </html>
