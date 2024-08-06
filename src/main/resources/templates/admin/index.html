@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<!-- Required Meta Tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Document Title, Description, and Author -->
+<title>Console - Free Bootstrap Admin Template</title>
+<meta name="description"
+	content="Console is a Free Bootstrap Admin Template.">
+<meta name="author" content="BootstrapBrain">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+	integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Google Fonts Files -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
+
+<!-- CSS Files -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css">
+<link rel="stylesheet" href="/assets/css/console-bsb.css">
+
+<!-- BSB Head -->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header id="header"
+		class="bg-white border-bottom border-light-subtle sticky-top bsb-tpl-header-sticky">
+		<nav
+			class="navbar navbar-expand-md bsb-navbar-3 bsb-tpl-navbar-sticky"
+			data-bsb-sticky-target="#header">
+			<div class="container">
+				<ul class="navbar-nav">
+					<li class="nav-item me-3"><a class="nav-link" href="#!"
+						data-bs-toggle="offcanvas" data-bs-target="#bsbSidebar1"
+						aria-controls="bsbSidebar1"> <i
+							class="bi-filter-left fs-3 lh-1"></i>
+					</a></li>
+				</ul>
+				<a class="navbar-brand" href="index.html"> <img
+					src="./assets/img/branding/console-logo.svg" class="bsb-tpl-logo"
+					alt="BootstrapBrain Logo">
+				</a>
+				<button class="navbar-toggler border-0" type="button"
+					data-bs-toggle="collapse" data-bs-target="#bsbNavbar"
+					aria-controls="bsbNavbar" aria-label="Toggle Navigation">
+					<i class="bi bi-three-dots"></i>
+				</button>
+				<div class="collapse navbar-collapse" id="bsbNavbar">
+					<ul
+						class="navbar-nav bsb-dropdown-menu-responsive ms-auto align-items-center">
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle bsb-dropdown-toggle-caret-disable"
+							href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false"> <span class="position-relative">
+									<i class="bi bi-search"></i>
+							</span>
+						</a>
+							<div
+								class="dropdown-menu dropdown-menu-md-end bsb-dropdown-animation bsb-fadeIn">
+								<form class="row g-1 px-3 py-2 align-items-center">
+									<div class="col-8">
+										<label class="visually-hidden" for="inputSearchNavbar">Search</label>
+										<input type="text" class="form-control" id="inputSearchNavbar">
+									</div>
+									<div class="col-4">
+										<button type="submit" class="btn btn-primary">Search</button>
+									</div>
+								</form>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle bsb-dropdown-toggle-caret-disable"
+							href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false"> <span class="position-relative">
+									<i class="bi bi-globe"></i>
+							</span>
+						</a>
+							<div
+								class="dropdown-menu dropdown-menu-md-end bsb-dropdown-sm bsb-dropdown-animation bsb-fadeIn">
+								<div>
+									<h6 class="dropdown-header fs-7 text-center">Multilingual</h6>
+								</div>
+								<div>
+									<hr class="dropdown-divider mb-0">
+								</div>
+								<div class="list-group list-group-flush">
+									<a href="#!" class="list-group-item list-group-item-action"
+										aria-current="true">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="./assets/img/translation/flag-img-1.svg"
+													class="img-fluid rounded-pill" alt="Arabic">
+											</div>
+											<div class="col-10">
+												<div class="ps-3">
+													<div class="fs-7">Arabic</div>
+												</div>
+											</div>
+										</div>
+									</a> <a href="#!" class="list-group-item list-group-item-action"
+										aria-current="true">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="./assets/img/translation/flag-img-2.svg"
+													class="img-fluid rounded-pill" alt="Chinese">
+											</div>
+											<div class="col-10">
+												<div class="ps-3">
+													<div class="fs-7">Chinese</div>
+												</div>
+											</div>
+										</div>
+									</a> <a href="#!"
+										class="list-group-item list-group-item-action active"
+										aria-current="true">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="./assets/img/translation/flag-img-3.svg"
+													class="img-fluid rounded-pill" alt="English">
+											</div>
+											<div class="col-10">
+												<div class="ps-3">
+													<div class="fs-7">English</div>
+												</div>
+											</div>
+										</div>
+									</a> <a href="#!" class="list-group-item list-group-item-action"
+										aria-current="true">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="./assets/img/translation/flag-img-4.svg"
+													class="img-fluid rounded-pill" alt="French">
+											</div>
+											<div class="col-10">
+												<div class="ps-3">
+													<div class="fs-7">French</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div>
+									<hr class="dropdown-divider mt-0">
+								</div>
+								<div>
+									<a class="dropdown-item fs-7 text-center" href="#!">See All
+										Languages</a>
+								</div>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle bsb-dropdown-toggle-caret-disable"
+							href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false"> <span class="position-relative pt-1">
+									<i class="bi bi-chat-left"></i> <span
+									class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent">
+										9 <span class="visually-hidden">New Chats</span>
+								</span>
+							</span>
+						</a>
+							<div
+								class="dropdown-menu dropdown-menu-md-end bsb-dropdown-animation bsb-fadeIn">
+								<div>
+									<h6 class="dropdown-header fs-7 text-center">9 New
+										Messages</h6>
+								</div>
+								<div>
+									<hr class="dropdown-divider mb-0">
+								</div>
+								<div class="list-group list-group-flush">
+									<a href="#!" class="list-group-item list-group-item-action"
+										aria-current="true">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="./assets/img/chat/chat-img-1.jpg"
+													class="img-fluid rounded-circle" alt="Luna John">
+											</div>
+											<div class="col-10">
+												<div class="ps-3">
+													<div class="text-dark">Luna John</div>
+													<div class="text-secondary mt-1 fs-7">Hello, I'm
+														having trouble with my account.</div>
+													<div class="text-secondary mt-1 fs-7">15m ago</div>
+												</div>
+											</div>
+										</div>
+									</a> <a href="#!" class="list-group-item list-group-item-action">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="./assets/img/chat/chat-img-2.jpg"
+													class="img-fluid rounded-circle" alt="Mark Smith">
+											</div>
+											<div class="col-10">
+												<div class="ps-3">
+													<div class="text-dark">Mark Smith</div>
+													<div class="text-secondary mt-1 fs-7">Hi, I'm not
+														able to change my password.</div>
+													<div class="text-secondary mt-1 fs-7">23m ago</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div>
+									<hr class="dropdown-divider mt-0">
+								</div>
+								<div>
+									<a class="dropdown-item fs-7 text-center" href="#!">See All
+										Messages</a>
+								</div>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle bsb-dropdown-toggle-caret-disable"
+							href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false"> <span class="position-relative pt-1">
+									<i class="bi bi-bell"></i> <span
+									class="p-1 bg-accent border border-light rounded-circle position-absolute top-0 start-100 translate-middle">
+										<span class="visually-hidden">New Notifications</span>
+								</span>
+							</span>
+						</a>
+							<ul
+								class="dropdown-menu dropdown-menu-md-end bsb-dropdown-animation bsb-fadeIn">
+								<li>
+									<h6 class="dropdown-header fs-7 text-center">18
+										Notifications</h6>
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item d-flex align-items-center"
+									href="#!"> <span> <i
+											class="bi bi-envelope-fill me-2"></i> <span class="fs-7">New
+												Messages</span>
+									</span> <span class="fs-7 ms-auto text-secondary">5 mins</span>
+								</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item d-flex align-items-center"
+									href="#!"> <span> <i class="bi bi-person-fill me-2"></i>
+											<span class="fs-7">Friend Requests</span>
+									</span> <span class="fs-7 ms-auto text-secondary">17 hours</span>
+								</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item d-flex align-items-center"
+									href="#!"> <span> <i
+											class="bi bi-file-earmark-fill me-2"></i> <span class="fs-7">New
+												Reports</span>
+									</span> <span class="fs-7 ms-auto text-secondary">3 days</span>
+								</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item fs-7 text-center" href="#!">See
+										All Notifications</a></li>
+							</ul></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle bsb-dropdown-toggle-caret-disable"
+							href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false"> <img
+								src="./assets/img/profile/profile-img-1.jpg" width="35"
+								height="35" class="img-fluid rounded-circle" alt="admin_pic">
+						</a>
+							<ul
+								class="dropdown-menu dropdown-menu-md-end bsb-dropdown-animation bsb-fadeIn">
+								<li>
+									<h6 class="dropdown-header fs-7 text-center">Welcome,
+										Admin Login</h6>
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a href="pages-profile.html" class="dropdown-item"
+									aria-current="true">
+										<div class="row g-0 align-items-center">
+											<div class="col-3">
+												<img src="./assets/img/profile/profile-img-1.jpg" width="55"
+													height="55" class="img-fluid rounded-circle"
+													alt="admin_pic">
+											</div>
+											<div class="col-9">
+												<div class="ps-3">
+													<div class="text-secondary mt-1 fs-7">Premium Account</div>
+													<div class="text-secondary mt-1 fs-7">leo@example.com</div>
+												</div>
+											</div>
+										</div>
+								</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="pages-profile.html">
+										<span> <i class="bi bi-person-fill me-2"></i> <span
+											class="fs-7">View Profile</span>
+									</span>
+								</a></li>
+								<li><a class="dropdown-item" href="#!"> <span> <i
+											class="bi bi-bell-fill me-2"></i> <span class="fs-7">Notifications</span>
+									</span>
+								</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="pages-profile.html">
+										<span> <i class="bi bi-gear-fill me-2"></i> <span
+											class="fs-7">Settings & Privacy</span>
+									</span>
+								</a></li>
+								<li><a class="dropdown-item" href="pages-faqs.html"> <span>
+											<i class="bi bi-question-circle-fill me-2"></i> <span
+											class="fs-7">Help Center</span>
+									</span>
+								</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item text-center"
+									href="auth-logout.html"> <span> <span class="fs-7">Log
+												Out</span>
+									</span>
+								</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<!-- Main -->
+	<main>
+
+		<section class="pb-3 pb-md-4 pb-xl-5 bg-light mt-4">
+			<div class="container">
+				<div class="row gy-3 gy-md-4">
+				
+				
+					<!-- single card start -->
+					<div class="col-12 col-sm-6 col-xl-3">
+						<div class="card widget-card border-light shadow-sm bg-success bg-opacity-25">
+							<div class="card-body p-4">
+								<div class="row">
+									<div class="col-8">
+										<h5 class="card-title widget-card-title mb-3">Add
+											Products</h5>
+
+									</div>
+									<div class="col-4">
+										<div class="d-flex justify-content-end">
+											<div
+												class="lh-1 text-white bg-success rounded-circle p-3 d-flex align-items-center justify-content-center">
+												<i class="fas fa-square-plus fa-2x"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="d-flex align-items-center mt-3">
+											<span
+												class="lh-1 me-3 bg-success-subtle text-success rounded-circle p-1 d-flex align-items-center justify-content-center">
+												<i class="bi bi-arrow-right-short bsb-rotate-n45"></i>
+											</span>
+											<div>
+												<p class="fs-7 mb-0">9%</p>
+												<p class="fs-7 mb-0 text-secondary">Total Products</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- single card end -->
+					<!-- single card start -->
+					<div class="col-12 col-sm-6 col-xl-3 ">
+						<div class="card widget-card border-light shadow-sm bg-warning bg-opacity-25">
+							<div class="card-body p-4">
+								<div class="row">
+									<div class="col-8">
+										<h5 class="card-title widget-card-title mb-3">Add
+											Category</h5>
+
+									</div>
+									<div class="col-4">
+										<div class="d-flex justify-content-end">
+											<div
+												class="lh-1 text-white bg-warning rounded-circle p-3 d-flex align-items-center justify-content-center">
+												<i class="fas fa-boxes-stacked fa-2x"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="d-flex align-items-center mt-3">
+											<span
+												class="lh-1 me-3 bg-success-subtle text-success rounded-circle p-1 d-flex align-items-center justify-content-center">
+												<i class="bi bi-arrow-right-short bsb-rotate-n45"></i>
+											</span>
+											<div>
+												<p class="fs-7 mb-0">9%</p>
+												<p class="fs-7 mb-0 text-secondary">Total Products</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- single card end -->
+					<!-- single card start -->
+					<div class="col-12 col-sm-6 col-xl-3">
+						<div class="card widget-card border-light shadow-sm">
+							<div class="card-body p-4">
+								<div class="row">
+									<div class="col-8">
+										<h5 class="card-title widget-card-title mb-3">View
+											Category</h5>
+
+									</div>
+									<div class="col-4">
+										<div class="d-flex justify-content-end">
+											<div
+												class="lh-1 text-white bg-primary rounded-circle p-3 d-flex align-items-center justify-content-center">
+												<i class="fas fa-table-list fa-2x"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="d-flex align-items-center mt-3">
+											<span
+												class="lh-1 me-3 bg-success-subtle text-success rounded-circle p-1 d-flex align-items-center justify-content-center">
+												<i class="bi bi-arrow-right-short bsb-rotate-n45"></i>
+											</span>
+											<div>
+												<p class="fs-7 mb-0">9%</p>
+												<p class="fs-7 mb-0 text-secondary">Total Products</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- single card end -->
+					<!-- single card start -->
+					<div class="col-12 col-sm-6 col-xl-3">
+						<div class="card widget-card border-light shadow-sm">
+							<div class="card-body p-4">
+								<div class="row">
+									<div class="col-8">
+										<h5 class="card-title widget-card-title mb-3">View
+											Products</h5>
+
+									</div>
+									<div class="col-4">
+										<div class="d-flex justify-content-end">
+											<div
+												class="lh-1 text-white bg-primary rounded-circle p-3 d-flex align-items-center justify-content-center">
+												<i class="fas fa-bars-progress fa-2x"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="d-flex align-items-center mt-3">
+											<span
+												class="lh-1 me-3 bg-success-subtle text-success rounded-circle p-1 d-flex align-items-center justify-content-center">
+												<i class="bi bi-arrow-right-short bsb-rotate-n45"></i>
+											</span>
+											<div>
+												<p class="fs-7 mb-0">9%</p>
+												<p class="fs-7 mb-0 text-secondary">Total Products</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- single card end -->
+					<!-- single card start -->
+					<div class="col-12 col-sm-6 col-xl-3">
+						<div class="card widget-card border-light shadow-sm">
+							<div class="card-body p-4">
+								<div class="row">
+									<div class="col-8">
+										<h5 class="card-title widget-card-title mb-3">Orders</h5>
+
+									</div>
+									<div class="col-4">
+										<div class="d-flex justify-content-end">
+											<div
+												class="lh-1 text-dark bg-warning  rounded-circle p-3 d-flex align-items-center justify-content-center">
+												<i class="fas fa-box-open fa-2x"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="d-flex align-items-center mt-3">
+											<span
+												class="lh-1 me-3 bg-success-subtle text-success rounded-circle p-1 d-flex align-items-center justify-content-center">
+												<i class="bi bi-arrow-right-short bsb-rotate-n45"></i>
+											</span>
+											<div>
+												<p class="fs-7 mb-0">9%</p>
+												<p class="fs-7 mb-0 text-secondary">Total Products</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- single card end -->
+					<!-- single card start -->
+					<div class="col-12 col-sm-6 col-xl-3">
+						<div class="card widget-card border-light shadow-sm">
+							<div class="card-body p-4">
+								<div class="row">
+									<div class="col-8">
+										<h5 class="card-title widget-card-title mb-3">Add
+											Products</h5>
+
+									</div>
+									<div class="col-4">
+										<div class="d-flex justify-content-end">
+											<div
+												class="lh-1 text-white bg-primary rounded-circle p-3 d-flex align-items-center justify-content-center">
+												<i class="bi bi-plus bi-2x fs-4"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="d-flex align-items-center mt-3">
+											<span
+												class="lh-1 me-3 bg-success-subtle text-success rounded-circle p-1 d-flex align-items-center justify-content-center">
+												<i class="bi bi-arrow-right-short bsb-rotate-n45"></i>
+											</span>
+											<div>
+												<p class="fs-7 mb-0">9%</p>
+												<p class="fs-7 mb-0 text-secondary">Total Products</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- single card end -->
+	
+				
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+
+
+
+	<!-- Aside -->
+	<aside class="bsb-sidebar-1 offcanvas offcanvas-start" tabindex="-1"
+		id="bsbSidebar1" aria-labelledby="bsbSidebarLabel1">
+		<div class="offcanvas-header">
+			<a class="sidebar-brand" href="index.html"> <img
+				src="./assets/img/branding/console-logo.svg" id="bsbSidebarLabel1"
+				class="bsb-tpl-logo" alt="BootstrapBrain Logo">
+			</a>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+				aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body pt-0">
+			<hr class="sidebar-divider mb-3">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link p-3 rounded"
+					data-bs-toggle="collapse" href="#dashboardExamples" role="button"
+					aria-expanded="false" aria-controls="dashboardExamples">
+						<div class="nav-link-icon text-primary">
+							<i class="bi bi-grid"></i>
+						</div> <span class="nav-link-text fw-bold">Dashboards</span>
+				</a>
+					<div class="collapse" id="dashboardExamples">
+						<ul class="nav flex-column ms-4">
+							<li class="nav-item"><a class="nav-link link-secondary"
+								aria-current="page" href="index.html">
+									<div class="nav-link-icon text-primary-emphasis">
+										<i class="bi bi-arrow-right-short"></i>
+									</div> <span class="nav-link-text">eCommerce</span>
+							</a></li>
+						</ul>
+					</div></li>
+				<li class="nav-item mt-3">
+					<h6 class="py-1 text-secondary text-uppercase fs-7">Tools</h6>
+				</li>
+				<li class="nav-item"><a class="nav-link p-3"
+					data-bs-toggle="collapse" href="#componentExamples" role="button"
+					aria-expanded="false" aria-controls="componentExamples">
+						<div class="nav-link-icon text-primary">
+							<i class="bi bi-menu-button-wide-fill"></i>
+						</div> <span class="nav-link-text fw-bold">Components</span>
+				</a>
+					<div class="collapse" id="componentExamples">
+						<ul class="nav flex-column ms-4">
+							<li class="nav-item"><a class="nav-link link-secondary"
+								aria-current="page" href="components-accordion.html">
+									<div class="nav-link-icon text-primary-emphasis">
+										<i class="bi bi-arrow-right-short"></i>
+									</div> <span class="nav-link-text">Accordion</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link link-secondary"
+								aria-current="page" href="components-alerts.html">
+									<div class="nav-link-icon text-primary-emphasis">
+										<i class="bi bi-arrow-right-short"></i>
+									</div> <span class="nav-link-text">Alerts</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link link-secondary"
+								aria-current="page" href="components-buttons.html">
+									<div class="nav-link-icon text-primary-emphasis">
+										<i class="bi bi-arrow-right-short"></i>
+									</div> <span class="nav-link-text">Buttons</span>
+							</a></li>
+							<li class="nav-item"><a class="nav-link link-secondary"
+								aria-current="page" href="components-card.html">
+									<div class="nav-link-icon text-primary-emphasis">
+										<i class="bi bi-arrow-right-short"></i>
+									</div> <span class="nav-link-text">Card</span>
+							</a></li>
+						</ul>
+					</div></li>
+		</div>
+
+	</aside>
+
+	<!-- Footer -->
+	<footer class="footer py-3 border-top border-light-subtle">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="py-3">
+						Created by <a href="https://bootstrap.com/"
+							class="link-secondary text-decoration-none">HindiCoders</a> with
+						<span class="text-accent">&#9829;</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Javascript Files: Vendors -->
+	<script
+		src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world-merc.js"></script>
+
+	<!-- Javascript Files: Controllers -->
+	<script src="/assets/controller/console-bsb.js"></script>
+	<script src="/assets/controller/map-1.js"></script>
+	<script src="/assets/controller/map-2.js"></script>
+
+	<!-- BSB Body End -->
+</body>
+
+</html>
