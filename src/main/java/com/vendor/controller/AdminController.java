@@ -13,5 +13,15 @@ public class AdminController {
 		
 		return "admin/index";
 	}
+	@GetMapping("/addProducts")
+	public String addProducts() {
+		
+		return "admin/add-products";
+	}
+	@GetMapping("/addCategory")
+	public String addCategory() {
+		
+		return "admin/add-category";
+	}
 
 }
