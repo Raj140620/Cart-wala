@@ -85,4 +85,9 @@ public class AdminController {
 
 		return "redirect:/admin/category";
 	}
+	
+	
+	/* Delete Categpry */
+	
+	
 }
