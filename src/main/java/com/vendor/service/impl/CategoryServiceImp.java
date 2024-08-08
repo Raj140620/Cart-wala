@@ -13,24 +13,24 @@ import com.vendor.service.CategoryService;
 public class CategoryServiceImp implements CategoryService {
 	
 	@Autowired
-	private CategoryRepository categoryrepository;
+	private CategoryRepository categoryRepository;
 	
 	@Override
 	public Category saveCategory(Category category) {
 		
-		return categoryrepository.save(category);
+		return categoryRepository.save(category);
 	}
 
 	@Override
-	public List<Category> getAllCategories() {
+	public List<Category> getAllCategory() {
 		
-		return categoryrepository.findAll();
+		return categoryRepository.findAll();
 	}
 
 	@Override
 	public Boolean existCategory(String name) {
 		
-		return categoryrepository.existsByName(name);
+		return categoryRepository.existsByName(name);
 	}
 
 }

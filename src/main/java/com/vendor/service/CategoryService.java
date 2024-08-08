@@ -11,6 +11,8 @@ public interface CategoryService {
 	
 	public Boolean existCategory(String name);
 	
-	public List<Category> getAllCategories();
+	public List<Category> getAllCategory();
+
+	
 
 }
