@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +40,7 @@ public class AdminController {
 		return "admin/add-products";
 	}
 	@GetMapping("/category")
-	public String addCategory() {
+	public String Category() {
 		
 		return "admin/add-category";
 	}
