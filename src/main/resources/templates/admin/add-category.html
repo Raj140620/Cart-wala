@@ -17,26 +17,9 @@
 	rel="stylesheet" />
 </head>
 <body>
-	<div class="d-flex justify-content-around m-4">
+	<div class="d-flex justify-content-around mt-4">
 		<div>
-			<th:block th:if="${session.successMsg}">
-				<div class="alert alert-success alert-dismissible fade show"
-					role="alert">
-					<strong>[[${session.successMsg}]]</strong>
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close"></button>
-				</div>
-				<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
-			</th:block>
-			<th:block th:if="${session.errorMsg}">
-				<div class="alert alert-warning alert-dismissible fade show"
-					role="alert">
-					<strong>[[${session.errorMsg}]]</strong>
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close"></button>
-				</div>
-				<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
-			</th:block>
+			
 			<form class="border bg-primary bg-opacity-10 px-2 pt-2"
 				style="width: 22rem" action="/admin/savecategory" method="post"
 				enctype="multipart/form-data">
@@ -45,8 +28,8 @@
 				<!-- Name input -->
 				<div data-mdb-input-init class="form-outline mb-4">
 					<input name="name" type="text" id="form5Example1"
-						class="form-control" /> <label class="form-label"
-						for="form5Example1">Name</label>
+						required="required" class="form-control" /> <label
+						class="form-label" for="form5Example1">Name</label>
 				</div>
 
 				<!-- fILE uPLOAD -->
@@ -77,16 +60,35 @@
 					class="btn btn-primary btn-block mb-4">Save</button>
 			</form>
 		</div>
-
+<div>
+<th:block th:if="${session.successMsg}" >
+				<div class="alert alert-success alert-dismissible fade show z-3 position-absolute "
+					role="alert">
+					<strong>[[${session.successMsg}]]</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+				<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
+			</th:block>
+			<th:block th:if="${session.errorMsg}">
+				<div class="alert alert-warning alert-dismissible fade show z-3 position-absolute"
+					role="alert">
+					<strong>[[${session.errorMsg}]]</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+				<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
+			</th:block>
+</div>
 		<div class="card">
-			<table class="table align-middle mb-0 bg-white">
+			<table class="table align-middle mb-0 bg-white table-hover">
 				<thead class="bg-light">
 					<tr>
 						<th class="bg-primary text-white">Category Preview</th>
 						<th class="bg-primary text-white">Category Name</th>
 						<th class="bg-primary text-white">Status</th>
 
-						<th colspan="2" class="bg-primary text-white">Action</th>
+						<th colspan="2" class="bg-primary text-white text-center">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -94,7 +96,7 @@
 						<td>
 							<div class="d-flex align-items-center">
 								<img th:src="@{'/uploads//img/category_img/'+${cat.imagename}}"
-									style="width: 45px; height: 45px" class="rounded-circle" />
+									style="width: 45px; height: 45px" class="rounded" />
 							</div>
 						</td>
 						<td>
@@ -117,13 +119,13 @@
 						<td>
 							<div class="d-flex align-items-center">
 								<img src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-									class="rounded-circle" alt="" style="width: 45px; height: 45px" />
+									class="rounded" alt="" style="width: 45px; height: 45px" />
 							</div>
 						</td>
 						<td>
-							<p class="fw-normal mb-1">Consultant</p>
+							<p class="fw-normal mb-1">Categories</p>
 						</td>
-						<td><span class="badge badge-primary rounded-pill d-inline">Onboarding</span>
+						<td><span class="badge badge-danger rounded-pill d-inline">Not-Active</span>
 						</td>
 						<td>
 							<button type="button"
@@ -144,9 +146,9 @@
 							</div>
 						</td>
 						<td>
-							<p class="fw-normal mb-1">Designer</p>
+							<p class="fw-normal mb-1">Dummy Category</p>
 						</td>
-						<td><span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
+						<td><span class="badge badge-success rounded-pill d-inline">Active</span>
 						</td>
 
 						<td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Required Meta Tags -->
 <meta charset="utf-8">
@@ -76,8 +76,8 @@
 											<div class="col-md-5">
 												<label for="inputCategory" class="form-label">Category</label>
 												<select id="inputCategory" class="form-select">
-													<option selected>Choose...</option>
-													<option>...</option>
+													<option selected disabled>Choose...</option>
+													<option th:each="c:${categories}">[[${c.name}]]</option>
 												</select>
 											</div>
 											<div class="col-md-3">
