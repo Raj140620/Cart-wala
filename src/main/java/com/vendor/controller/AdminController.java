@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -85,9 +86,84 @@ public class AdminController {
 
 		return "redirect:/admin/category";
 	}
-	
-	
-	/* Delete Categpry */
-	
-	
+
+	/* Delete Category */
+
+	@GetMapping("/deletecategory/{id}")
+	public String deleteCategory(@PathVariable int id, HttpSession session) {
+
+		System.out.println(id);
+		Boolean deleteCategory = categoryService.deleteCategory(id);
+		if (deleteCategory) {
+
+			session.setAttribute("successMsg", "Category Deleted Successfully");
+
+		} else {
+			session.setAttribute("errorMsg", "Unable to Delete Category");
+
+		}
+
+		return "redirect:/admin/category";
+	}
+
+	/* Fetch data for Edit Category */
+	@GetMapping("/loadeditcategory/{id}")
+	public String loadEditCategory(@PathVariable int id, Model m) {
+
+		m.addAttribute("category", categoryService.getCategoryById(id));
+
+		return "admin/edit-category";
+	}
+
+	/* Update Category */
+
+	/*
+	 * @PostMapping("/updatecategory") public String UpdateCategory(@ModelAttribute
+	 * Category category, @RequestParam("file") MultipartFile file,HttpSession
+	 * session) {
+	 * 
+	 * Category oldCategory = categoryService.getCategoryById(category.getId());
+	 * String imageName = file.isEmpty() ? oldCategory.getImagename() :
+	 * file.getOriginalFilename();
+	 * 
+	 * if (!ObjectUtils.isEmpty(category)) {
+	 * oldCategory.setName(category.getName());
+	 * oldCategory.setIsActive(category.getIsActive());
+	 * oldCategory.setImagename(imageName); }
+	 * 
+	 * Category updatedCategory = categoryService.saveCategory(oldCategory);
+	 * 
+	 * if (!ObjectUtils.isEmpty(updatedCategory)) {
+	 * session.setAttribute("successMsg", "Category Updated Successfully");
+	 * 
+	 * } else { session.setAttribute("errorMsg", "Category not updated");
+	 * 
+	 * } return "redirect:/admin/loadeditcategory/"+category.getId(); }
+	 */
+	@PostMapping("/updateCategory")
+	public String updateCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,
+			HttpSession session) throws IOException {
+
+		Category oldCategory = categoryService.getCategoryById(category.getId());
+		String imageName = file.isEmpty() ? oldCategory.getImagename() : file.getOriginalFilename();
+
+		if (!ObjectUtils.isEmpty(category)) {
+
+			oldCategory.setName(category.getName());
+			oldCategory.setIsActive(category.getIsActive());
+			oldCategory.setImagename(imageName);
+		}
+
+		Category updateCategory = categoryService.saveCategory(oldCategory);
+
+		if (!ObjectUtils.isEmpty(updateCategory)) {
+
+			session.setAttribute("successMsg", "Category update success");
+		} else {
+			session.setAttribute("errorMsg", "something wrong on server");
+		}
+
+		return "redirect:/admin/loadeditcategory/" + category.getId();
+	}
+
 }
