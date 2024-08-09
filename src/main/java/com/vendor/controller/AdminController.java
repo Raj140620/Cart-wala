@@ -117,53 +117,52 @@ public class AdminController {
 
 	/* Update Category */
 
-	/*
-	 * @PostMapping("/updatecategory") public String UpdateCategory(@ModelAttribute
-	 * Category category, @RequestParam("file") MultipartFile file,HttpSession
-	 * session) {
-	 * 
-	 * Category oldCategory = categoryService.getCategoryById(category.getId());
-	 * String imageName = file.isEmpty() ? oldCategory.getImagename() :
-	 * file.getOriginalFilename();
-	 * 
-	 * if (!ObjectUtils.isEmpty(category)) {
-	 * oldCategory.setName(category.getName());
-	 * oldCategory.setIsActive(category.getIsActive());
-	 * oldCategory.setImagename(imageName); }
-	 * 
-	 * Category updatedCategory = categoryService.saveCategory(oldCategory);
-	 * 
-	 * if (!ObjectUtils.isEmpty(updatedCategory)) {
-	 * session.setAttribute("successMsg", "Category Updated Successfully");
-	 * 
-	 * } else { session.setAttribute("errorMsg", "Category not updated");
-	 * 
-	 * } return "redirect:/admin/loadeditcategory/"+category.getId(); }
-	 */
 	@PostMapping("/updateCategory")
 	public String updateCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,
 			HttpSession session) throws IOException {
 
+		// Retrieve the old category based on the ID
 		Category oldCategory = categoryService.getCategoryById(category.getId());
+		
+		// Determine the image name to use (either the old one or the new one if a file was uploaded)
 		String imageName = file.isEmpty() ? oldCategory.getImagename() : file.getOriginalFilename();
+		category.setImagename(imageName);
 
-		if (!ObjectUtils.isEmpty(category)) {
-
+		if (!ObjectUtils.isEmpty(oldCategory)) {
+			// Update the fields of the old category with the new data
 			oldCategory.setName(category.getName());
 			oldCategory.setIsActive(category.getIsActive());
 			oldCategory.setImagename(imageName);
-		}
 
-		Category updateCategory = categoryService.saveCategory(oldCategory);
+			// Save the updated category
+			Category updatedCategory = categoryService.saveCategory(oldCategory);
 
-		if (!ObjectUtils.isEmpty(updateCategory)) {
+			// If a new file was uploaded, save it
+			if (!file.isEmpty()) {
+				String uploadDir = "uploads/img/category_img";
+				File uploadDirectory = new File(uploadDir);
 
-			session.setAttribute("successMsg", "Category update success");
+				// Create directories if they don't exist
+				if (!uploadDirectory.exists()) {
+					uploadDirectory.mkdirs();
+				}
+
+				// Save the new image file
+				Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
+				Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+			}
+
+			if (!ObjectUtils.isEmpty(updatedCategory)) {
+				session.setAttribute("successMsg", "Category updated successfully");
+			} else {
+				session.setAttribute("errorMsg", "Failed to update the category. Please try again.");
+			}
 		} else {
-			session.setAttribute("errorMsg", "something wrong on server");
+			session.setAttribute("errorMsg", "Category not found.");
 		}
 
 		return "redirect:/admin/loadeditcategory/" + category.getId();
 	}
+
 
 }
