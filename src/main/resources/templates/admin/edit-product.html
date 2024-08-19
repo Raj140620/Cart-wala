@@ -82,7 +82,7 @@
 									<div class="card-body p-4 bg-primary bg-opacity-10 ">
 										<form class="row g-3 p-2" enctype="multipart/form-data"
 											method="post" th:action="@{/admin/updateproduct}">
-
+											<input type="hidden" name="id" th:value="${product.id}">
 											<div class="col-md-12">
 												<label for="inputTitle" class="form-label">Title</label> <input
 													type="text" class="form-control" id="inputTitle"
@@ -126,7 +126,7 @@
 
 											<div class="d-grid gap-2">
 												<button class="btn btn-primary" type="submit">Update product</button>
-												<a href="viewproducts" type="button"
+												<a href="/admin/viewproducts" type="button"
 													class="btn btn-outline-primary" data-mdb-ripple-init
 													data-mdb-ripple-color="dark"> View products</a>
 

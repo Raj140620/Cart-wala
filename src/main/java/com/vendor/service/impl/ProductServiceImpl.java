@@ -46,4 +46,11 @@ public class ProductServiceImpl implements ProductService {
 		
 		Product product=productRepository.findById(id).orElse(null);
 		return product;
+	}
+
+	@Override
+	public Product updateProduct(Product product) {
+		
+		
+		return null;
 	}}

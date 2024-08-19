@@ -244,7 +244,60 @@ public class AdminController {
 		m.addAttribute("category",categoryService.getAllCategory());
 		return "admin/edit-product";
 	}
+	
+	
+	//Updating product
+	@PostMapping("/updateProduct")
+	public String updateProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file,
+	                            HttpSession session) throws IOException {
 
+	    // Retrieve the old product based on the ID
+	    Product oldProduct = productService.getProductById(product.getId());
+	    
+	    // Determine the image name to use (either the old one or the new one if a file was uploaded)
+	    String imageName = file.isEmpty() ? oldProduct.getImageName() : file.getOriginalFilename();
+	    product.setImageName(imageName);
+
+	    if (!ObjectUtils.isEmpty(oldProduct)) {
+	        // Update the fields of the old product with the new data
+	        oldProduct.setTitle(product.getTitle());
+	        oldProduct.setDescription(product.getDescription());
+	        oldProduct.setPrice(product.getPrice());
+	        oldProduct.setStock(product.getStock());
+	        oldProduct.setImageName(imageName);
+
+	        // Save the updated product
+	        Product updatedProduct = productService.saveProduct(oldProduct);
+
+	        // If a new file was uploaded, save it
+	        if (!file.isEmpty()) {
+	            String uploadDir = "uploads/img/product_img";
+	            File uploadDirectory = new File(uploadDir);
+
+	            // Create directories if they don't exist
+	            if (!uploadDirectory.exists()) {
+	                uploadDirectory.mkdirs();
+	            }
+
+	            // Save the new image file
+	            Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
+	            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+	        }
+
+	        if (!ObjectUtils.isEmpty(updatedProduct)) {
+	            session.setAttribute("successMsg", "Product updated successfully");
+	        } else {
+	            session.setAttribute("errorMsg", "Failed to update the product. Please try again.");
+	        }
+	    } else {
+	        session.setAttribute("errorMsg", "Product not found.");
+	    }
+
+	    return "redirect:/admin/loadeditproduct/" + product.getId();
+	}
+
+
+	
 	
 
 
