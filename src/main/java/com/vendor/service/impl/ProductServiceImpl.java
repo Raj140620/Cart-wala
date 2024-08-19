@@ -48,9 +48,4 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
-	@Override
-	public Product updateProduct(Product product) {
-		
-		
-		return null;
-	}}
+}

@@ -293,7 +293,7 @@ public class AdminController {
 	        session.setAttribute("errorMsg", "Product not found.");
 	    }
 
-	    return "redirect:/admin/loadeditproduct/" + product.getId();
+	    return "redirect:/admin/viewproducts";
 	}
 
 
