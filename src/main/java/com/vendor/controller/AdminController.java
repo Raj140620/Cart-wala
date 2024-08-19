@@ -214,7 +214,36 @@ public class AdminController {
 
 	    return "redirect:/admin/loadProducts";
 	}
+	
+	//View All products in Admin page
+	@GetMapping("/viewproducts")
+	public String viewProducts(Model m) {
+		m.addAttribute("products", productService.getAllproducts());
+		return "admin/products";
+	}
+	
+	//deleting a product
+	@GetMapping("/deleteproduct/{id}")
+	public String deleteproduct(@PathVariable int id,HttpSession session) {
+		Boolean deleteproduct= productService.deleteProduct(id);
+		if (deleteproduct) {
+			session.setAttribute("successMsg", "Product Delete Successfully");
+		} else {
+			session.setAttribute("errorMsg", "Unable to delete product");
 
+		}
+		return "redirect:/admin/viewproducts";
+	}
+	
+	//load edit page
+	
+	@GetMapping("/loadeditproduct/{id}")
+	public String loadEditproduct(@PathVariable int id,Model m)
+	{	
+		m.addAttribute("product",productService.getProductById(id));
+		m.addAttribute("category",categoryService.getAllCategory());
+		return "admin/edit-product";
+	}
 
 	
 

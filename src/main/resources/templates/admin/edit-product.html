@@ -74,42 +74,46 @@
 						<div class="row gy-3 gy-md-4">
 							<div class="col-12">
 								<div class="card widget-card border-light shadow-sm">
-									<div class="card-header bg-transparent p-4 border-light-subtle">
-										<h5 class="card-title widget-card-title m-0">Add Product</h5>
+									<div
+										class="card-header bg-warning bg-opacity-25 text-center p-4 border-light-subtle">
+										<h4 class="card-title widget-card-title m-0 ">Edit
+											Product</h4>
 									</div>
 									<div class="card-body p-4 bg-primary bg-opacity-10 ">
 										<form class="row g-3 p-2" enctype="multipart/form-data"
-											method="post" th:action="@{/admin/saveProduct}">
+											method="post" th:action="@{/admin/updateproduct}">
 
 											<div class="col-md-12">
 												<label for="inputTitle" class="form-label">Title</label> <input
 													type="text" class="form-control" id="inputTitle"
-													name="title">
+													name="title" th:value="${product.title}">
 											</div>
 											<div class="col-12">
 												<label for="descriptionLabel">Description</label>
 												<textarea class="form-control" id="descriptionLabel"
-													rows="3" name="description"></textarea>
+													rows="3" name="description"> [[${product.description}]]</textarea>
 											</div>
 
 
 											<div class="col-md-4">
 												<label for="inputprice" class="form-label">Price</label> <input
 													type="text" class="form-control" id="inputprice"
-													name="price">
+													name="price" th:value="${product.price}">
 											</div>
 											<div class="col-md-5">
-												<label for="inputCategory" class="form-label">Category</label>
-												<select id="inputCategory" class="form-select"
-													name="category">
-													<option selected disabled>Choose...</option>
-													<option th:each="c:${categories}">[[${c.name}]]</option>
-												</select>
+												<div class="d-flex float-left">
+													<img
+														th:src="@{'/uploads//img/product_img/'+${product.imageName}}"
+														style="width: 80px; height: 80px" class="rounded " /> <span>Preview
+														or else </span> <b class="text-danger">&nbsp Upload new Image</b>
+
+
+												</div>
 											</div>
 											<div class="col-md-3">
 												<label for="inputStock" class="form-label">Stock</label> <input
 													type="text" class="form-control" id="inputStock"
-													name="stock">
+													name="stock" th:value="${product.stock}">
 											</div>
 
 											<div class="col-md-12">
@@ -121,9 +125,10 @@
 											</div>
 
 											<div class="d-grid gap-2">
-												<button class="btn btn-primary" type="submit">Submit</button>
-												<a href="viewproducts" type="button" class="btn btn-outline-primary"
-													data-mdb-ripple-init data-mdb-ripple-color="dark"> View products</a> 
+												<button class="btn btn-primary" type="submit">Update product</button>
+												<a href="viewproducts" type="button"
+													class="btn btn-outline-primary" data-mdb-ripple-init
+													data-mdb-ripple-color="dark"> View products</a>
 
 											</div>
 
