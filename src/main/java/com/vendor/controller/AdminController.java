@@ -33,7 +33,7 @@ public class AdminController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private ProductService productService;
 
@@ -42,8 +42,6 @@ public class AdminController {
 
 		return "admin/index";
 	}
-
-	
 
 	@GetMapping("/category")
 	public String category(Model m) {
@@ -125,8 +123,9 @@ public class AdminController {
 
 		// Retrieve the old category based on the ID
 		Category oldCategory = categoryService.getCategoryById(category.getId());
-		
-		// Determine the image name to use (either the old one or the new one if a file was uploaded)
+
+		// Determine the image name to use (either the old one or the new one if a file
+		// was uploaded)
 		String imageName = file.isEmpty() ? oldCategory.getImagename() : file.getOriginalFilename();
 		category.setImagename(imageName);
 
@@ -165,67 +164,74 @@ public class AdminController {
 
 		return "redirect:/admin/loadeditcategory/" + category.getId();
 	}
-	
-	//Get All categories in Dropdown
+
+	// Get All categories in Dropdown
 	@GetMapping("/loadProducts")
 	public String addProducts(Model m) {
-	List<Category> categories=	categoryService.getAllCategory();
-	m.addAttribute("categories",categories);
+		List<Category> categories = categoryService.getAllCategory();
+		m.addAttribute("categories", categories);
 
 		return "admin/add-products";
 	}
-	
-	//Save Product through Form
+
+	// Save Product through Form
 	@PostMapping("/saveProduct")
-	public String saveProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+	public String saveProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file,
+			HttpSession session) throws IOException {
 
-	    // Check if a file is provided
-	    if (!file.isEmpty()) {
-	        // Set the file name as the image name
-	        String imageName = file.getOriginalFilename();
-	        product.setImageName(imageName);  // Assuming you have an imageName field in your Product entity
+		// Check if a file is provided
+		if (!file.isEmpty()) {
+			// Set the file name as the image name
+			String imageName = file.getOriginalFilename();
+			product.setImageName(imageName); // Assuming you have an imageName field in your Product entity
 
-	        // Define the path where you want to save the file
-	        String uploadDir = "uploads/img/product_img";
-	        File uploadDirectory = new File(uploadDir);
+			// Define the path where you want to save the file
+			String uploadDir = "uploads/img/product_img";
+			File uploadDirectory = new File(uploadDir);
 
-	        // Create directories if they don't exist
-	        if (!uploadDirectory.exists()) {
-	            uploadDirectory.mkdirs();
-	        }
+			// Create directories if they don't exist
+			if (!uploadDirectory.exists()) {
+				uploadDirectory.mkdirs();
+			}
 
-	        // Save the file
-	        Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
-	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+			// Save the file
+			Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
+			Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-	        System.out.println("File saved to: " + filePath);
-	    } else {
-	        product.setImageName("default.jpg");  // Handle the case where no file is uploaded
-	    }
+			System.out.println("File saved to: " + filePath);
+		} else {
+			product.setImageName("default.jpg"); // Handle the case where no file is uploaded
+		}
 
-	    // Save the product
-	    Product savedProduct = productService.saveProduct(product);
+		// DISCOUNT LOGIC while saving
 
-	    if (!ObjectUtils.isEmpty(savedProduct)) {
-	        session.setAttribute("successMsg", "Product Added Successfully");
-	    } else {
-	        session.setAttribute("errorMsg", "Unable to add product");
-	    }
+		Double discount = product.getPrice() * (product.getDiscount() / 100.0);
+		Double discountedPrice = product.getPrice() - discount;
+		System.out.println(product.getDiscount());
+		product.setDiscountedPrice(discountedPrice);
+		// Save the product
+		Product savedProduct = productService.saveProduct(product);
 
-	    return "redirect:/admin/loadProducts";
+		if (!ObjectUtils.isEmpty(savedProduct)) {
+			session.setAttribute("successMsg", "Product Added Successfully");
+		} else {
+			session.setAttribute("errorMsg", "Unable to add product");
+		}
+
+		return "redirect:/admin/loadProducts";
 	}
-	
-	//View All products in Admin page
+
+	// View All products in Admin page
 	@GetMapping("/viewproducts")
 	public String viewProducts(Model m) {
 		m.addAttribute("products", productService.getAllproducts());
 		return "admin/products";
 	}
-	
-	//deleting a product
+
+	// deleting a product
 	@GetMapping("/deleteproduct/{id}")
-	public String deleteproduct(@PathVariable int id,HttpSession session) {
-		Boolean deleteproduct= productService.deleteProduct(id);
+	public String deleteproduct(@PathVariable int id, HttpSession session) {
+		Boolean deleteproduct = productService.deleteProduct(id);
 		if (deleteproduct) {
 			session.setAttribute("successMsg", "Product Delete Successfully");
 		} else {
@@ -234,71 +240,73 @@ public class AdminController {
 		}
 		return "redirect:/admin/viewproducts";
 	}
-	
-	//load edit page
-	
+
+	// load edit page
+
 	@GetMapping("/loadeditproduct/{id}")
-	public String loadEditproduct(@PathVariable int id,Model m)
-	{	
-		m.addAttribute("product",productService.getProductById(id));
-		m.addAttribute("category",categoryService.getAllCategory());
+	public String loadEditproduct(@PathVariable int id, Model m) {
+		m.addAttribute("product", productService.getProductById(id));
+		m.addAttribute("category", categoryService.getAllCategory());
 		return "admin/edit-product";
 	}
-	
-	
-	//Updating product
+
+	// Updating product
 	@PostMapping("/updateProduct")
-	public String updateProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file,
-	                            HttpSession session) throws IOException {
+	public String updateProduct(@ModelAttribute Product product, @RequestParam MultipartFile file, HttpSession session)
+			throws IOException {
 
-	    // Retrieve the old product based on the ID
-	    Product oldProduct = productService.getProductById(product.getId());
-	    
-	    // Determine the image name to use (either the old one or the new one if a file was uploaded)
-	    String imageName = file.isEmpty() ? oldProduct.getImageName() : file.getOriginalFilename();
-	    product.setImageName(imageName);
+		// Retrieve the old product based on the ID
+		Product oldProduct = productService.getProductById(product.getId());
 
-	    if (!ObjectUtils.isEmpty(oldProduct)) {
-	        // Update the fields of the old product with the new data
-	        oldProduct.setTitle(product.getTitle());
-	        oldProduct.setDescription(product.getDescription());
-	        oldProduct.setPrice(product.getPrice());
-	        oldProduct.setStock(product.getStock());
-	        oldProduct.setImageName(imageName);
+		// Determine the image name to use (either the old one or the new one if a file
+		// was uploaded)
+		String imageName = file.isEmpty() ? oldProduct.getImageName() : file.getOriginalFilename();
+		product.setImageName(imageName);
 
-	        // Save the updated product
-	        Product updatedProduct = productService.saveProduct(oldProduct);
+		if (!ObjectUtils.isEmpty(oldProduct)) {
+			// Update the fields of the old product with the new data
+			oldProduct.setTitle(product.getTitle());
+			oldProduct.setDescription(product.getDescription());
+			oldProduct.setPrice(product.getPrice());
+			oldProduct.setStock(product.getStock());
+			oldProduct.setImageName(imageName);
 
-	        // If a new file was uploaded, save it
-	        if (!file.isEmpty()) {
-	            String uploadDir = "uploads/img/product_img";
-	            File uploadDirectory = new File(uploadDir);
+			// Set the discount value on the oldProduct
+			oldProduct.setDiscount(product.getDiscount()); // <-- This is important
 
-	            // Create directories if they don't exist
-	            if (!uploadDirectory.exists()) {
-	                uploadDirectory.mkdirs();
-	            }
+			// DISCOUNT LOGIC while updating
+			Double discount = product.getPrice() * (product.getDiscount() / 100.0);
+			Double discountedPrice = product.getPrice() - discount;
+			oldProduct.setDiscountedPrice(discountedPrice);
 
-	            // Save the new image file
-	            Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
-	            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-	        }
+			// Save the updated product
+			Product updatedProduct = productService.saveProduct(oldProduct);
 
-	        if (!ObjectUtils.isEmpty(updatedProduct)) {
-	            session.setAttribute("successMsg", "Product updated successfully");
-	        } else {
-	            session.setAttribute("errorMsg", "Failed to update the product. Please try again.");
-	        }
-	    } else {
-	        session.setAttribute("errorMsg", "Product not found.");
-	    }
+			// If a new file was uploaded, save it
+			if (!file.isEmpty()) {
+				String uploadDir = "uploads/img/product_img";
+				File uploadDirectory = new File(uploadDir);
 
-	    return "redirect:/admin/viewproducts";
+				// Create directories if they don't exist
+				if (!uploadDirectory.exists()) {
+					uploadDirectory.mkdirs();
+				}
+
+				// Save the new image file
+				Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
+				Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+			}
+
+			if (!ObjectUtils.isEmpty(updatedProduct)) {
+				session.setAttribute("successMsg", "Product updated successfully");
+			} else {
+				session.setAttribute("errorMsg", "Failed to update the product. Please try again.");
+			}
+		} else {
+			session.setAttribute("errorMsg", "Product not found.");
+		}
+
+		return "redirect:/admin/viewproducts";
 	}
-
-
-	
-	
-
 
 }

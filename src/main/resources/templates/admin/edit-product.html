@@ -115,6 +115,16 @@
 													type="text" class="form-control" id="inputStock"
 													name="stock" th:value="${product.stock}">
 											</div>
+											<div class="col-md-6">
+												<label for="discount" class="form-label">Discount</label> <input
+													type="text" class="form-control" id="discount"
+													name="discount" th:value="${product.discount}">
+											</div>
+											<div class="col-md-6">
+												<label for="inputStock" class="form-label">Discount Price</label> <input
+													type="text" class="form-control" id="inputStock"
+													 th:value="${product.discountedPrice}" readonly="readonly">
+											</div>
 
 											<div class="col-md-12">
 												<div class="form-label">

@@ -53,7 +53,9 @@
 						<th class="bg-info text-white">Product preview</th>
 						<th class="bg-info text-white">Title</th>
 						<th class="bg-info text-white">Category</th>
-						<th class="bg-info text-white">Price</th>
+						<th class="bg-info text-white">MRP Price</th>
+						<th class="bg-info text-white">Discount %</th>
+						<th class="bg-info text-white">Discounted Price</th>
 						<th class="bg-info text-white">Stock</th>
 
 						<th colspan="2" class="bg-info text-white text-center">Action</th>
@@ -72,7 +74,9 @@
 
 						<td>[[${prd.title}]]</td>
 						<td>[[${prd.category}]]</td>
-						<td>[[${prd.price}]]</td>
+						<td>[[${prd.price}]] ₹</td>
+						<td>[[${prd.discount}]] %</td>
+						<td>[[${prd.discountedPrice}]] ₹</td>
 						<td><span class="badge badge-success rounded-pill d-inline">[[${prd.stock}]]</span>
 						<td><a th:href="@{'/admin/loadeditproduct/'+${prd.id}}"
 							class="btn btn-link btn-rounded btn-sm fw-bold"

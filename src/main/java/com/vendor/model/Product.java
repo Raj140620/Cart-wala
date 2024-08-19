@@ -31,6 +31,12 @@ public class Product {
 	private String category;
 
 	private Double price;
+	
+	private int discount;
+	
+	private Double discountedPrice;
+	
+	
 
 	private int stock;
 
