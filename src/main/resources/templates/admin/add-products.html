@@ -43,7 +43,26 @@
 	<!-- Main -->
 	<main id="main">
 
-
+<div>
+<th:block th:if="${session.successMsg}" >
+				<div class="alert alert-success alert-dismissible fade show z-3 position-absolute "
+					role="alert">
+					<strong>[[${session.successMsg}]]</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+				<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
+			</th:block>
+			<th:block th:if="${session.errorMsg}">
+				<div class="alert alert-warning alert-dismissible fade show z-3 position-absolute"
+					role="alert">
+					<strong>[[${session.errorMsg}]]</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+				<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
+			</th:block>
+</div>
 
 		<!-- Section - Bootstrap Brain Component -->
 		<section class="pb-3 pb-md-4 pb-xl-5 bg-light pt-4 ">
@@ -57,44 +76,44 @@
 										<h5 class="card-title widget-card-title m-0">Add Product</h5>
 									</div>
 									<div class="card-body p-4 bg-primary bg-opacity-10 ">
-										<form class="row g-3  p-2">
+										<form class="row g-3 p-2" enctype="multipart/form-data" method="post" th:action="@{/admin/saveProduct}">
+
 											<div class="col-md-12">
-												<label for="inputEmail4" class="form-label">Title</label> <input
-													type="email" class="form-control" id="inputEmail4">
+												<label for="inputTitle" class="form-label">Title</label> 
+												<input type="text" class="form-control" id="inputTitle" name="title">
 											</div>
 											<div class="col-12">
-												<label for="exampleFormControlTextarea1">Description</label>
-												<textarea class="form-control"
-													id="exampleFormControlTextarea1" rows="3"></textarea>
+												<label for="descriptionLabel">Description</label>
+												<textarea class="form-control" id="descriptionLabel" rows="3" name="description"></textarea>
 											</div>
 
 
 											<div class="col-md-4">
 												<label for="inputprice" class="form-label">Price</label> <input
-													type="text" class="form-control" id="inputprice">
+													type="text" class="form-control" id="inputprice" name="price">
 											</div>
 											<div class="col-md-5">
 												<label for="inputCategory" class="form-label">Category</label>
-												<select id="inputCategory" class="form-select">
+												<select id="inputCategory" class="form-select" name="category">
 													<option selected disabled>Choose...</option>
 													<option th:each="c:${categories}">[[${c.name}]]</option>
 												</select>
 											</div>
 											<div class="col-md-3">
 												<label for="inputStock" class="form-label">Stock</label> <input
-													type="text" class="form-control" id="inputStock">
+													type="text" class="form-control" id="inputStock" name="stock">
 											</div>
 
 											<div class="col-md-12">
 												<div class="form-label">
 													<label for="exampleFormControlFile1">Product Image
-													</label> <input type="file" class="form-control"
+													</label> <input type="file" class="form-control" name="file"
 														id="exampleFormControlFile1">
 												</div>
 											</div>
 
 											<div class="d-grid gap-2">
-												<button class="btn btn-primary" type="button">Submit</button>
+												<button class="btn btn-primary" type="submit">Submit</button>
 											</div>
 
 

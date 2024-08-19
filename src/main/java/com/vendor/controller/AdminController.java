@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.vendor.model.Category;
+import com.vendor.model.Product;
 import com.vendor.service.CategoryService;
+import com.vendor.service.ProductService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -31,6 +33,9 @@ public class AdminController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private ProductService productService;
 
 	@GetMapping("/")
 	public String index() {
@@ -38,13 +43,7 @@ public class AdminController {
 		return "admin/index";
 	}
 
-	@GetMapping("/loadProducts")
-	public String addProducts(Model m) {
-	List<Category> categories=	categoryService.getAllCategory();
-	m.addAttribute("categories",categories);
-
-		return "admin/add-products";
-	}
+	
 
 	@GetMapping("/category")
 	public String category(Model m) {
@@ -166,6 +165,58 @@ public class AdminController {
 
 		return "redirect:/admin/loadeditcategory/" + category.getId();
 	}
+	
+	//Get All categories in Dropdown
+	@GetMapping("/loadProducts")
+	public String addProducts(Model m) {
+	List<Category> categories=	categoryService.getAllCategory();
+	m.addAttribute("categories",categories);
+
+		return "admin/add-products";
+	}
+	
+	//Save Product through Form
+	@PostMapping("/saveProduct")
+	public String saveProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+
+	    // Check if a file is provided
+	    if (!file.isEmpty()) {
+	        // Set the file name as the image name
+	        String imageName = file.getOriginalFilename();
+	        product.setImageName(imageName);  // Assuming you have an imageName field in your Product entity
+
+	        // Define the path where you want to save the file
+	        String uploadDir = "uploads/img/product_img";
+	        File uploadDirectory = new File(uploadDir);
+
+	        // Create directories if they don't exist
+	        if (!uploadDirectory.exists()) {
+	            uploadDirectory.mkdirs();
+	        }
+
+	        // Save the file
+	        Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
+	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+	        System.out.println("File saved to: " + filePath);
+	    } else {
+	        product.setImageName("default.jpg");  // Handle the case where no file is uploaded
+	    }
+
+	    // Save the product
+	    Product savedProduct = productService.saveProduct(product);
+
+	    if (!ObjectUtils.isEmpty(savedProduct)) {
+	        session.setAttribute("successMsg", "Product Added Successfully");
+	    } else {
+	        session.setAttribute("errorMsg", "Unable to add product");
+	    }
+
+	    return "redirect:/admin/loadProducts";
+	}
+
+
+	
 
 
 }
