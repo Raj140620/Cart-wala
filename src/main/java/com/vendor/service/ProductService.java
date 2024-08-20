@@ -14,5 +14,6 @@ public interface ProductService {
 	 
 	 public Product getProductById(Integer id);
 	 
-	
+	 public List<Product>  getAllActiveProducts();
+
 }

@@ -269,6 +269,7 @@ public class AdminController {
 			oldProduct.setDescription(product.getDescription());
 			oldProduct.setPrice(product.getPrice());
 			oldProduct.setStock(product.getStock());
+			oldProduct.setIsActive(product.getIsActive());
 			oldProduct.setImageName(imageName);
 
 			// Set the discount value on the oldProduct

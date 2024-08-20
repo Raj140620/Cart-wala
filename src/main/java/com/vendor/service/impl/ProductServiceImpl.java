@@ -48,4 +48,10 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
+	@Override
+	public List<Product> getAllActiveProducts() {
+		List<Product> products=productRepository.findByIsActiveTrue();
+		return products;
+	}
+
 }

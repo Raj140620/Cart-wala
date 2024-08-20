@@ -53,6 +53,7 @@
 						<th class="bg-info text-white">Product preview</th>
 						<th class="bg-info text-white">Title</th>
 						<th class="bg-info text-white">Category</th>
+						<th class="bg-info text-white">Status</th>
 						<th class="bg-info text-white">MRP Price</th>
 						<th class="bg-info text-white">Discount %</th>
 						<th class="bg-info text-white">Discounted Price</th>
@@ -74,10 +75,14 @@
 
 						<td>[[${prd.title}]]</td>
 						<td>[[${prd.category}]]</td>
+						<td><span
+							th:classappend="${prd.isActive} ? 'badge-success' : 'badge-danger'"
+							class="badge rounded-pill d-inline"> [[${prd.isActive} ?
+								'Active' : 'Not-Active']] </span></td>
 						<td>[[${prd.price}]] ₹</td>
 						<td>[[${prd.discount}]] %</td>
 						<td>[[${prd.discountedPrice}]] ₹</td>
-						<td><span class="badge badge-success rounded-pill d-inline">[[${prd.stock}]]</span>
+						<td><span class="badge badge-warning rounded-pill d-inline">[[${prd.stock}]]</span>
 						<td><a th:href="@{'/admin/loadeditproduct/'+${prd.id}}"
 							class="btn btn-link btn-rounded btn-sm fw-bold"
 							data-mdb-ripple-color="dark"> Edit </a></td>
