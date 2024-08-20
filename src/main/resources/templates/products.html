@@ -6,7 +6,7 @@
 >
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
+    <title>All Products</title>
   </head>
   <body>
     <!-- Search Box -->
@@ -41,9 +41,16 @@
           </div>
           <div class="list-group rounded-0">
             <a
-              href="#"
-              th:each="c:${categories}"
+              href="/products"
               class="list-group-item list-group-item-action"
+              th:classappend="${paramValue==''}?'active bg-success':''"
+              >All</a
+            >
+            <a
+              th:each="c:${categories}"
+              th:href="@{'/products?category='+${c.name}}"
+              class="list-group-item list-group-item-action"
+              th:classappend="${paramValue==c.name}?'active bg-success':''"
               >[[${c.name}]]</a
             >
           </div>
@@ -62,8 +69,8 @@
                 />
                 <div class="card-body">
                   <h5 class="card-title">[[${prod.title}]]</h5>
-                  <span class="text-success bg-info bg-opacity-10"
-                    ><b>₹ [[${prod.discountedPrice}]]</b></span
+                  <span class="text-success bg-success bg-opacity-10 rounded"
+                    ><b class="fs-5">₹ [[${prod.discountedPrice}]]</b></span
                   >
                   <span class="text-secondary">
                     <s>₹ [[${prod.price}]]</s></span
