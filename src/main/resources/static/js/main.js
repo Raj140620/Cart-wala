@@ -56,10 +56,10 @@ document.addEventListener("DOMContentLoaded",() =>{
           }
       }, step);
   }
-  counter("count1",0,100,10000);
-  counter("count2",0,50,10000);
-  counter("count3",0,20,10000);
-  counter("count4",0,30,10000);
+  counter("count1",0,50,10000);
+  counter("count2",0,20,10000);
+  counter("count3",0,35,10000);
+  counter("count4",0,100,10000);
 })
 
 
