@@ -6,105 +6,141 @@
 <title>Insert title here</title>
 </head>
 <body>
+<th:block th:if="${session.successMsg}">
+			<div
+				class="alert alert-success alert-dismissible fade show z-3 position-absolute  "
+				role="alert">
+				<strong>✔️ [[${session.successMsg}]]</strong>
+				<button type="button" class="btn btn-outline" data-bs-dismiss="alert"
+					aria-label="Close">❌</button>
+			</div>
+			<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
+		</th:block>
+		<th:block th:if="${session.errorMsg}">
+			<div
+				class="alert alert-warning alert-dismissible fade show z-3 position-absolute"
+				role="alert">
+				<strong>[[${session.errorMsg}]]</strong>
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+			<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
+		</th:block>
 
-<div class="container col-3 p-4 mt-3 mb-2 bg-primary bg-opacity-10 rounded-3 ">
+	<div
+		class="container col-3 p-4 mt-3 mb-2 bg-primary bg-opacity-10 rounded-3 ">
+		
+
+		<form action="/saveuser" method="post" enctype="multipart/form-data" >
+
+			<h2 class="text-center">User details</h2>
+			<!-- 2 column grid layout with text inputs for the first and last names -->
+			<!-- Email input -->
+			<div data-mdb-input-init class="form-outline mb-4">
+				<input name="name" type="text" id="fullname" class="form-control" />
+				<label class="form-label" for="fullname">Full Name</label>
+			</div>
+			<div class="row mb-4">
+				<div class="col">
+					<div data-mdb-input-init class="form-outline">
+						<input name="address" type="text" id="address"
+							class="form-control" /> <label class="form-label" for="address">Address</label>
+					</div>
+				</div>
+				<div class="col">
+					<div data-mdb-input-init class="form-outline">
+						<input name="city" type="text" id="form3Example2"
+							class="form-control" /> <label class="form-label"
+							for="form3Example2">City</label>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col">
+					<div data-mdb-input-init class="form-outline">
+						<input name="email" type="email" id="email" class="form-control" />
+						<label class="form-label" for="email">Email</label>
+					</div>
+				</div>
+				<div class="col">
+					<div data-mdb-input-init class="form-outline">
+						<input name="mobileNumber" type="number" id="phone"
+							class="form-control" /> <label class="form-label" for="phone">Phone</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mb-4">
+				<div class="col">
+					<div data-mdb-input-init class="form-outline">
+						<input name="state" type="text" id="state" class="form-control" />
+						<label class="form-label" for="state">State</label>
+					</div>
+				</div>
+				<div class="col">
+					<div data-mdb-input-init class="form-outline">
+						<input name="pincode" type="number" id="pincode"
+							class="form-control" /> <label class="form-label" for="pincode">Pincode</label>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col">
+					<div data-mdb-input-init class="form-outline">
+						<input name="password" type="password" id="password"
+							class="form-control" /> <label class="form-label" for="password">Password</label>
+					</div>
+				</div>
+
+				<div class="col">
+					<div data-mdb-input-init class="form-outline">
+						<input type="password" id="confirm-password" class="form-control" />
+						<label class="form-label" for="confirm-password">Confirm-Password</label>
+					</div>
+				</div>
+			</div>
+				<!-- fILE uPLOAD -->
+				<div data-mdb-input-init class="mb-4">
+					<label class="form-label" for="customFile">Image file input
+					</label> <input name="file" type="file" class="form-control"
+						id="customFile" />
+				</div>
+
+	
 
 
-<form>
-<h2 class="text-center">User details</h2>
-  <!-- 2 column grid layout with text inputs for the first and last names -->
-  <!-- Email input -->
-  <div data-mdb-input-init class="form-outline mb-4">
-    <input type="email" id="fullname" class="form-control" />
-    <label class="form-label" for="fullname">Full Name</label>
-  </div>
-  <div class="row mb-4">
-    <div class="col">
-      <div data-mdb-input-init class="form-outline">
-        <input type="text" id="address" class="form-control" />
-        <label class="form-label" for="address">Address</label>
-      </div>
-    </div>
-    <div class="col">
-      <div data-mdb-input-init class="form-outline">
-        <input type="text" id="form3Example2" class="form-control" />
-        <label class="form-label" for="form3Example2">City</label>
-      </div>
-    </div>
-  </div>
-  <div class="row mb-4">
-    <div class="col">
-      <div data-mdb-input-init class="form-outline">
-        <input type="email" id="email" class="form-control" />
-        <label class="form-label" for="email">Email</label>
-      </div>
-    </div>
-    <div class="col">
-      <div data-mdb-input-init class="form-outline">
-        <input type="number" id="form3Example2" class="form-control" />
-        <label class="form-label" for="form3Example2">Phone</label>
-      </div>
-    </div>
-  </div>
-  
-  <div class="row mb-4">
-    <div class="col">
-      <div data-mdb-input-init class="form-outline">
-        <input type="text" id="state" class="form-control" />
-        <label class="form-label" for="state">State</label>
-      </div>
-    </div>
-    <div class="col">
-      <div data-mdb-input-init class="form-outline">
-        <input type="number" id="pincode" class="form-control" />
-        <label class="form-label" for="pincode">Pincode</label>
-      </div>
-    </div>
-  </div>
-  <div class="row mb-4">
-    <div class="col">
-      <div data-mdb-input-init class="form-outline">
-        <input type="password" id="password" class="form-control" />
-        <label class="form-label" for="password">Password</label>
-      </div>
-    </div>
-    
-    <div class="col">
-      <div data-mdb-input-init class="form-outline">
-        <input type="password" id="confirm-password" class="form-control" />
-        <label class="form-label" for="confirm-password">Confirm-Password</label>
-      </div>
-    </div>
-  </div>
 
 
 
-  
-  
 
-  <!-- Submit button -->
-  <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4 ">Sign up</button>
+			<!-- Submit button -->
+			<button data-mdb-ripple-init type="submit"
+				class="btn btn-primary btn-block mb-4 ">Sign up</button>
 
-  <!-- Register buttons -->
-  <div class="text-center">
-    <p>or sign up with:</p>
-    <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-      <i class="fab fa-facebook-f"></i>
-    </button>
+			<!-- Register buttons -->
+			<div class="text-center">
+				<p>or sign up with:</p>
+				<button data-mdb-ripple-init type="button"
+					class="btn btn-secondary btn-floating mx-1">
+					<i class="fab fa-facebook-f"></i>
+				</button>
 
-    <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-      <i class="fab fa-google"></i>
-    </button>
+				<button data-mdb-ripple-init type="button"
+					class="btn btn-secondary btn-floating mx-1">
+					<i class="fab fa-google"></i>
+				</button>
 
-    <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-      <i class="fab fa-twitter"></i>
-    </button>
+				<button data-mdb-ripple-init type="button"
+					class="btn btn-secondary btn-floating mx-1">
+					<i class="fab fa-twitter"></i>
+				</button>
 
-    <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-      <i class="fab fa-github"></i>
-    </button>
-  </div>
-</form>
-</div>
+				<button data-mdb-ripple-init type="button"
+					class="btn btn-secondary btn-floating mx-1">
+					<i class="fab fa-github"></i>
+				</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
