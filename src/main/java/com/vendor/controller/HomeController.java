@@ -1,6 +1,5 @@
 package com.vendor.controller;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,7 +35,7 @@ public class HomeController {
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -72,19 +71,18 @@ public class HomeController {
 
 		return "view_product";
 	}
-	
+
 	@PostMapping("/saveuser")
-	public String saveUser(@ModelAttribute UserData user,@RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
-	  
+	public String saveUser(@ModelAttribute UserData user, @RequestParam("file") MultipartFile file, HttpSession session)
+			throws IOException {
+
 		String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
 		user.setImagename(imageName);
 		System.out.println(user);
-	    // Save the user
-	    UserData savedUser = userService.saveUser(user);
+		// Save the user
+		UserData savedUser = userService.saveUser(user);
 
-	    if (!ObjectUtils.isEmpty(savedUser)) {
-	        session.setAttribute("successMsg", "User Registered Successfully");
-	    } else {
+		if (!ObjectUtils.isEmpty(savedUser)) {
 			// Define the path where you want to save the file
 			String uploadDir = "uploads/img/profile_img";
 			File uploadDirectory = new File(uploadDir);
@@ -99,13 +97,13 @@ public class HomeController {
 			Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
 			System.out.println("File saved to: " + filePath);
+			session.setAttribute("successMsg", "User Registered Successfully");
+		} else {
 
-			session.setAttribute("successMsg", "User Saved Successfully");
+			session.setAttribute("errorMsg", "User Saved Successfully");
 		}
 
-	    return "redirect:/register";
+		return "redirect:/register";
 	}
-
-
 
 }
