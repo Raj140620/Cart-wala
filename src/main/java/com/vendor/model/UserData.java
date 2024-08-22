@@ -38,6 +38,8 @@ public class UserData {
 	private String password; 
 
 	private String imagename;
+	
+	private String role;
 
 
 }
