@@ -13,7 +13,6 @@ public class CustomUser implements UserDetails{
 	
 	private UserData user;
 
-	
 	public CustomUser(UserData user) {
 		super();
 		this.user = user;
@@ -21,7 +20,7 @@ public class CustomUser implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		SimpleGrantedAuthority authority=new SimpleGrantedAuthority(user.getRole());
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
 		return Arrays.asList(authority);
 	}
 
@@ -32,8 +31,30 @@ public class CustomUser implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return user.getEmail();
 	}
 
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+	
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	
 }
