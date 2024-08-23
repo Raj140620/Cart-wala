@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserData saveUser(UserData user) {
-		user.setRole("ROLE_USER");
+		/* user.setRole("ROLE_USER"); */
 		
 		  String encodedPassword=passwordEncoder.encode(user.getPassword());
 		  user.setPassword(encodedPassword);
@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
 		
 		UserData saveUser= userRepository.save(user);
 		return saveUser;
+	}
+
+	@Override
+	public UserData getUserByEmail(String email) {
+ 		return userRepository.findByEmail(email);
 	}
 
 }

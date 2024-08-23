@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,18 @@ public class HomeController {
 
 	@Autowired
 	private UserService userService;
-
+	
+	@ModelAttribute
+	public void getUserDetails(Principal p,Model m) {
+		
+		if (p!=null) {
+			String email=p.getName();
+			UserData userData=userService.getUserByEmail(email);
+			m.addAttribute("user", userData);
+		}
+		
+	}
+	
 	@GetMapping("/")
 	public String index() {
 
@@ -74,34 +86,42 @@ public class HomeController {
 
 	@PostMapping("/saveuser")
 	public String saveUser(@ModelAttribute UserData user, @RequestParam("file") MultipartFile file, HttpSession session)
-			throws IOException {
+	        throws IOException {
 
-		String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
-		user.setImagename(imageName);
-		System.out.println(user);
-		// Save the user
-		UserData savedUser = userService.saveUser(user);
+	    // Check if the file is empty or not
+	    String imageName;
+	    if (file != null && !file.isEmpty()) {
+	        imageName = file.getOriginalFilename();
+	    } else {
+	        imageName = "default.jpg"; // Use a default image if none is uploaded
+	    }
+	    user.setImagename(imageName);
+	    System.out.println(user);
 
-		if (!ObjectUtils.isEmpty(savedUser)) {
-			// Define the path where you want to save the file
-			String uploadDir = "uploads/img/profile_img";
-			File uploadDirectory = new File(uploadDir);
+	    // Save the user
+	    UserData savedUser = userService.saveUser(user);
 
-			// Create directories if they don't exist
-			if (!uploadDirectory.exists()) {
-				uploadDirectory.mkdirs();
-			}
+	    if (!ObjectUtils.isEmpty(savedUser)) {
+	        // Define the path where you want to save the file
+	        String uploadDir = "uploads/img/profile_img";
+	        File uploadDirectory = new File(uploadDir);
 
-			// Save the file
-			Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
-			Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+	        // Create directories if they don't exist
+	        if (!uploadDirectory.exists()) {
+	            uploadDirectory.mkdirs();
+	        }
 
-			System.out.println("File saved to: " + filePath);
-			session.setAttribute("successMsg", "User Registered Successfully");
-		} else {
+	        // Save the file only if a file was uploaded
+	        if (!file.isEmpty()) {
+	            Path filePath = Paths.get(uploadDirectory.getAbsolutePath(), file.getOriginalFilename());
+	            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+	            System.out.println("File saved to: " + filePath);
+	        }
 
-			session.setAttribute("errorMsg", "User Saved Successfully");
-		}
+	        session.setAttribute("successMsg", "User Registered Successfully");
+	    } else {
+	        session.setAttribute("errorMsg", "User Registration Failed");
+	    }
 
 		return "redirect:/register";
 	}

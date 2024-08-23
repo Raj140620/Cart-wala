@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::body})}">
+	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -30,12 +30,13 @@
 						aria-label="Close"></button>
 				</div>
 			</div>
+<div class="bg-warning bg-opacity-10 p-4 container-fluid">
 
 		<div th:class="'container col-3 p-4 mt-3 mb-2 rounded-3 ' + 
-		              (${param.error} ? 'bg-primary bg-opacity-10 border border-danger' : 'bg-primary bg-opacity-10')">
+		              (${param.error} ? 'card border border-danger' : 'card')">
 			
 			
-			<h2 class="text-center">Login Form</h2>
+			<h2 class="text-center">Login Here</h2>
 
 			<form action="/login" method="post">
 				<!-- Email input -->
@@ -57,7 +58,7 @@
 					<div class="col d-flex justify-content-center">
 						<!-- Checkbox -->
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value=""
+							<input class="form-check-input " type="checkbox" value=""
 								id="form2Example34" checked /> 
 							<label class="form-check-label"
 								for="form2Example34"> Remember me </label>
@@ -66,39 +67,21 @@
 
 					<div class="col">
 						<!-- Simple link -->
-						<a href="#!">Forgot password?</a>
+						<a href="#!" class="text-warning">Forgot password?</a>
 					</div>
 				</div>
 
 				<!-- Submit button -->
 				<button data-mdb-ripple-init type="submit"
-					class="btn btn-primary btn-block mb-4">Sign in</button>
+					class="btn btn-success btn-block mb-4">Sign in</button>
 
 				<!-- Register buttons -->
-				<div class="text-center">
-					<p>Not a member? <a href="register">Register</a></p>
-					<p>or sign up with:</p>
-					<button data-mdb-ripple-init type="button"
-						class="btn btn-secondary btn-floating mx-1">
-						<i class="fab fa-facebook-f"></i>
-					</button>
-
-					<button data-mdb-ripple-init type="button"
-						class="btn btn-secondary btn-floating mx-1">
-						<i class="fab fa-google"></i>
-					</button>
-
-					<button data-mdb-ripple-init type="button"
-						class="btn btn-secondary btn-floating mx-1">
-						<i class="fab fa-twitter"></i>
-					</button>
-
-					<button data-mdb-ripple-init type="button"
-						class="btn btn-secondary btn-floating mx-1">
-						<i class="fab fa-github"></i>
-					</button>
+				<div class="text-center  ">
+					<p>Not a member? <a href="register" class="text-danger">Register</a></p>
+					
 				</div>
 			</form>
+		</div>
 		</div>
 	</section>
 

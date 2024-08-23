@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.vendor.model.Category;
 import com.vendor.model.Product;
+import com.vendor.model.UserData;
 import com.vendor.service.CategoryService;
 import com.vendor.service.ProductService;
+import com.vendor.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -36,6 +39,20 @@ public class AdminController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@ModelAttribute
+	public void getUserDetails(Principal p,Model m) {
+		
+		if (p!=null) {
+			String email=p.getName();
+			UserData userData=userService.getUserByEmail(email);
+			m.addAttribute("user", userData);
+		}
+		
+	}
 
 	@GetMapping("/")
 	public String index() {
