@@ -26,14 +26,14 @@
 		</div>
 		<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
 	</th:block>
-	<div class="bg-warning bg-opacity-10 p-4 container-fluid">
-		<div class="container col-4  mt-3 mb-2 card  rounded-3 ">
+	<div class="bg-warning bg-opacity-10 p-3 container-fluid">
+		<div class="container col-4   mb-2 card  rounded-3 ">
 
 
 			<form action="/saveuser" method="post" enctype="multipart/form-data"
 				class="pb-4">
 
-				<h2 class="text-center fs-2 p-4">Register here</h2>
+				<h2 class="text-center fs-2 p-2">Register here</h2>
 				<!-- 2 column grid layout with text inputs for the first and last names -->
 				<!-- Email input -->
 				<div data-mdb-input-init class="form-outline mb-4">
@@ -127,7 +127,10 @@
 				<!-- Submit button -->
 				<button data-mdb-ripple-init type="submit"
 					class="btn btn-success btn-block mb-4 mt-4">Sign up</button>
-
+				<div class="text-center  ">
+					<p>Already a member? <a href="signin" class="text-danger">Login</a></p>
+					
+				</div>
 
 			</form>
 		</div>

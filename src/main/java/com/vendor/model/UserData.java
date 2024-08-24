@@ -40,6 +40,8 @@ public class UserData {
 	private String imagename;
 	
 	private String role;
+	
+	private Boolean isEnabled;
 
 
 }
