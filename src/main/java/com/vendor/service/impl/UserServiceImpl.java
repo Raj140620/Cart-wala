@@ -1,5 +1,6 @@
 package com.vendor.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.vendor.model.UserData;
 import com.vendor.repository.UserRepository;
 import com.vendor.service.UserService;
+import com.vendor.util.AppConstant;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService {
 		/* user.setRole("ROLE_USER"); */
 			
 		  user.setIsEnabled(true);
+		  user.setAccountNotLocked(true);
+		  user.setFailedAttempt(0);
+		  
 		  String encodedPassword=passwordEncoder.encode(user.getPassword());
 		  user.setPassword(encodedPassword);
 		 
@@ -60,6 +65,47 @@ public class UserServiceImpl implements UserService {
 		
 		
 		return false;
+		
+	}
+
+	@Override
+	public void increaseFailedAttempt(UserData user) {
+		int attempt = (user.getFailedAttempt() == null) ? 1 : user.getFailedAttempt()+1;
+		user.setFailedAttempt(attempt);
+		userRepository.save(user);
+	}
+
+	@Override
+	public void userAccountLock(UserData user) {
+
+		user.setAccountNotLocked(false);
+		user.setLockTime(new Date());
+		userRepository.save(user);
+	}
+
+	@Override
+	public boolean unlockAccountTimeExpired(UserData user) {
+
+		Long lockTime=user.getLockTime().getTime();
+		
+		long unLockTime=lockTime+AppConstant.UNLOCK_DURATION_TIME;
+		
+		long currentTime=System.currentTimeMillis();
+		
+		if (unLockTime<currentTime) {
+			user.setAccountNotLocked(true);
+			user.setFailedAttempt(0);
+			user.setLockTime(null);
+			userRepository.save(user);
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public void resetAttempt(int userId) {
+		// TODO Auto-generated method stub
 		
 	}
 	
