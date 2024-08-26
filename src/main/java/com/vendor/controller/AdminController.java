@@ -59,6 +59,7 @@ public class AdminController {
 
 		return "admin/index";
 	}
+	
 
 	@GetMapping("/category")
 	public String category(Model m) {

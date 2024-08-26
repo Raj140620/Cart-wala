@@ -25,6 +25,7 @@ import com.vendor.model.UserData;
 import com.vendor.service.CategoryService;
 import com.vendor.service.ProductService;
 import com.vendor.service.UserService;
+import com.vendor.util.CommonUtil;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -56,7 +57,8 @@ public class HomeController {
 
 		return "index";
 	}
-
+	
+	
 	@GetMapping("/signin")
 	public String login() {
 		return "login";
@@ -124,6 +126,40 @@ public class HomeController {
 	    }
 
 		return "redirect:/register";
+	}
+	
+	//Forgot Password Logic
+	@GetMapping("/forgot")
+	public String showforgotPassword() {
+		
+		return "forgot-password";
+	}
+	@PostMapping("/forgot-password")
+	public String processforgotPassword(@RequestParam String email,HttpSession session) {
+		UserData userByEmail = userService.getUserByEmail(email);
+		if (ObjectUtils.isEmpty(userByEmail)) {
+			session.setAttribute("errorMsg", email +" Email is not Registerd");
+		}
+		else {
+			Boolean sendMail = CommonUtil.sendMail();
+			if (sendMail) {
+				session.setAttribute("successMsg","Reset link sent to"+userByEmail.getEmail());
+			}
+			else {
+				session.setAttribute("errorMsg","Failed to send Reset Link");
+			}
+		}
+		
+		
+		
+		return "redirect:/forgot";
+	}
+	
+	
+	@GetMapping("/reset")
+	public String showResetPassword() {
+		
+		return "reset-password";
 	}
 
 }
