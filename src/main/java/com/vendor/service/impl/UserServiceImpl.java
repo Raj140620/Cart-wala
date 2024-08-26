@@ -108,6 +108,26 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void updateUserResetToken(String email, String resetToken) {
+		UserData findByEmail = userRepository.findByEmail(email);
+		findByEmail.setResetToken(resetToken);
+		userRepository.save(findByEmail);
+		
+	}
+
+	@Override
+	public UserData getUserByToken(String token) {
+		
+		return userRepository.findByResetToken(token);
+	}
+
+	@Override
+	public UserData updateUser(UserData user) {
+		
+		return userRepository.save(user);
+	}
 	
 	
 

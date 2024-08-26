@@ -52,6 +52,8 @@ public class UserData {
 	private Integer failedAttempt;
 	
 	private Date lockTime;
+	
+	private String resetToken;
 
 
 }
