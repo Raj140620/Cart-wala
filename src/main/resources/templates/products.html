@@ -37,7 +37,7 @@
           <div
             class="bg-success text-white text-center bg-opacity-75 rounded-3"
           >
-            <h2>Category</h2>
+            <h2 class="p-1">Category</h2>
           </div>
           <div class="list-group rounded-0">
             <a
@@ -47,51 +47,70 @@
               >All</a
             >
             <a
+            
               th:each="c:${categories}"
               th:href="@{'/products?category='+${c.name}}"
-              class="list-group-item list-group-item-action"
-              th:classappend="${paramValue==c.name}?'active bg-success':''"
-              >[[${c.name}]]</a
+              class="list-group-item list-group-item-action "
+              th:classappend="${paramValue==c.name}?'active bg-success ':''"
+              > <img 
+                  loading="lazy"
+                  th:src="@{'/uploads/img/category_img/'+${c.imagename}}"
+                  style="width: 45px; height: 45px"
+                  class="rounded-circle me-2 "
+                />[[${c.name}]]   </a
             >
+          
           </div>
         </div>
         <!-- Category End -->
 
-        <!-- ProductsList -->
-        <div class="col-9">
-          <div class="row">
-            <div class="col-md-4 mb-2 " th:each=" prod: ${products}">
-              <div class="card ">
-                <img 
-                loading="lazy"
-                  th:src="@{'/uploads/img/product_img/'+${prod.imageName}}"
-                  style="width: 200px; height: 200px"
-                  class="rounded  "
-                />
-                <div class="card-body">
-                  <h5 class="card-title">[[${prod.title}]]</h5>
-                  <span class="text-success bg-success bg-opacity-10 rounded"
-                    ><b class="fs-5">₹ [[${prod.discountedPrice}]]</b></span
-                  >
-                  <span class="text-secondary">
-                    <s>₹ [[${prod.price}]]</s></span
-                  >
-                  <span class="text-warning">[[${prod.discount}]]% Off</span>
-                  <p class="card-text">[[${prod.description}]]</p>
-                  <a
-                    href="#!"
-                    class="btn btn-outline-success"
-                    data-mdb-ripple-init
-                    >View <i class="fas fa-eye"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
+       <!-- ProductsList -->
+<div class="col-9">
+  <div class="row">
+    <div th:if="${#lists.isEmpty(products)}">
+      <div class="col-12 text-center">
+      
+        <h4 class="badge bg-warning bg-opacity-10 text-wrap fs-2 text-dark" >Product Unavailable for <span class="text-danger upper-case">[[${paramValue}]]</span> category</h4>
+      </div>
+    </div>
+    
+    <div class="col-md-4 mb-2" th:each="prod: ${products}" th:unless="${#lists.isEmpty(products)}">
+      <div class="card">
+      
+        <img
+          loading="lazy"
+          th:src="@{'/uploads/img/product_img/'+${prod.imageName}}"
+          style="width: 200px; height: 200px"
+          class="rounded"
+          alt="Product Image"
+        />
+        
+        <div class="card-body">
+          <h5 class="card-title">[[${prod.title}]]</h5>
+          <span class="text-success bg-success bg-opacity-10 rounded">
           
-           
-          </div>
+            <b class="fs-5">₹ [[${prod.discountedPrice}]] </b>
+          </span>
+          <span class="text-secondary text-decoration-line-through">
+            ₹ [[${prod.price}]]
+          </span>
+          
+          <span class="text-warning">[[${prod.discount}]]% Off </span>
+          <p class="card-text">[[${prod.description}]]</p>
+          <a
+            href="#!"
+            class="btn btn-outline-success"
+            data-mdb-ripple-init
+          >
+            View <i class="fas fa-eye"> </i>
+          </a>
         </div>
-        <!-- ProductsList End -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ProductsList End -->
+
       </div>
     </div>
   </div>
