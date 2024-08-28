@@ -131,9 +131,9 @@ public class HomeController {
 	            System.out.println("File saved to: " + filePath);
 	        }
 
-	        session.setAttribute("successMsg", "User Registered Successfully");
+	        session.setAttribute("successMsg", user.getRole()+" Registered Successfully");
 	    } else {
-	        session.setAttribute("errorMsg", "User Registration Failed");
+	        session.setAttribute("errorMsg", "Registration Failed");
 	    }
 
 		return "redirect:/register";
