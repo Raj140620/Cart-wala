@@ -65,8 +65,11 @@ public class HomeController {
 	}
 	
 	@GetMapping("/")
-	public String index() {
-
+	public String index(Model m) {
+		List<Category> categories = categoryService.getAllActiveCategory();
+		List<Product> products = productService.getAllproducts();
+		m.addAttribute("products", products);
+		m.addAttribute("categories", categories);
 		return "index";
 	}
 	
