@@ -98,7 +98,7 @@
           <span class="text-warning">[[${prod.discount}]]% Off </span>
           <p class="card-text">[[${prod.description}]]</p>
           <a
-            href="#!"
+            th:href="@{'/product/'+${prod.id}}"
             class="btn btn-outline-success"
             data-mdb-ripple-init
           >
