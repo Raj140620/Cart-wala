@@ -45,19 +45,28 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public SecurityFilterChain filetChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
-				.authorizeHttpRequests(req -> req.requestMatchers("/user/**").hasRole("USER")
-				.requestMatchers("/admin/**").hasRole("ADMIN").requestMatchers("/**").permitAll())
-				.formLogin(form -> form.loginPage("/signin")
-						.loginProcessingUrl("/login")
-						//.defaultSuccessUrl("/")
-						.failureHandler(authenticationFailureHandler)
-						.successHandler(authenticationSuccessHandler))
-						.logout(logout -> logout.permitAll());
+	    http.csrf(csrf -> csrf.disable())
+	        .cors(cors -> cors.disable())
+	        .authorizeHttpRequests(req -> req
+	            .requestMatchers("/admin/**").hasRole("ADMIN")  // Only ADMIN can access /admin/** URLs
+	            .requestMatchers("/user/**").hasRole("USER")    // Only USER can access /user/** URLs
+	            .requestMatchers("/", "/products", "/product/**").hasAnyRole("USER", "ANONYMOUS") // Restrict ADMIN from accessing "/", but allow USER and others
+	            .requestMatchers("/**").permitAll()             // Permit all other requests (non-admin and non-product URLs)
+	        )
+	        .formLogin(form -> form
+	            .loginPage("/signin")
+	            .loginProcessingUrl("/login")
+	            //.defaultSuccessUrl("/")
+	            .failureHandler(authenticationFailureHandler)
+	            .successHandler(authenticationSuccessHandler)
+	        )
+	        .logout(logout -> logout.permitAll());
 
-		return http.build();
+	    return http.build();
 	}
+
+
 
 }
