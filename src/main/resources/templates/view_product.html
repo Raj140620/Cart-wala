@@ -22,14 +22,70 @@
 </style>
 </head>
 <body>
-	<section >
+	<div aria-live="polite" aria-atomic="true" class="position-relative">
+		<!-- Position it: -->
+		<!-- - `.toast-container` for spacing between toasts -->
+		<!-- - `top-0` & `end-0` to position the toasts in the upper right corner -->
+		<!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
+		<div class="toast-container top-0 end-0 p-3">
+
+			<!-- Then put toasts within -->
+			<div class="toast" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<img src="..." class="rounded me-2" alt="..."> <strong
+						class="me-auto">Bootstrap</strong> <small
+						class="text-body-secondary">just now</small>
+					<button type="button" class="btn-close" data-bs-dismiss="toast"
+						aria-label="Close"></button>
+				</div>
+				<div class="toast-body">See? Just like this.</div>
+			</div>
+
+			<div class="toast" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<img src="..." class="rounded me-2" alt="..."> <strong
+						class="me-auto">Bootstrap</strong> <small
+						class="text-body-secondary">2 seconds ago</small>
+					<button type="button" class="btn-close" data-bs-dismiss="toast"
+						aria-label="Close"></button>
+				</div>
+				<div class="toast-body">Heads up, toasts will stack
+					automatically</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:if="${session.successMsg}">
+
+
+		<div
+			class="alert alert-success alert-dismissible fade show z-3 position-absolute "
+			role="alert">
+			<strong>[[${session.successMsg}]]</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+		<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
+	</th:block>
+	<th:block th:if="${session.errorMsg}">
+		<div
+			class="alert alert-warning alert-dismissible fade show z-3 position-absolute"
+			role="alert">
+			<strong>[[${session.errorMsg}]]</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+		<th th:text="${@commonServiceImpl.removeSessionMessage()}"></th>
+	</th:block>
+	<section>
 		<div class="container shadow"
 			style="margin-top: 70px; margin-bottom: 100px">
 			<div class="row g-4 p-5">
 				<div class="col-12 col-md-6 text-center text-md-end">
 					<img alt="Fresh Apple"
 						th:src="@{'/uploads/img/product_img/'+${product.imageName}}"
-						class="img-fluid card" style="max-width: 100%; height: auto;">
+						class="img-fluid " style="max-width: 100%; height: auto;">
 				</div>
 
 				<div class="col-12 col-md-6">
@@ -68,23 +124,32 @@
 					</div>
 
 					<div class="vstack gap-2">
-						<!-- If the product is in stock, show the "Add To Cart" anchor tag -->
-						<a th:if="${product.stock > 0}" href="#"
-							class="btn btn-success  text-white ">
-							<h5 class="mb-0">Add To Cart</h5>
-						</a>
+						<!-- If the product is in stock and the user is not logged in, show the "Add To Cart" link to the signin page -->
+						<th:block th:if="${product.stock > 0}">
+							<a th:if="${user == null}" href="/signin"
+								class="btn btn-success text-white">
+								<h5 class="mb-0">Add To Cart</h5>
+							</a>
+							<!-- If the product is in stock and the user is logged in, show the "Add To Cart" link with product and user IDs -->
+							<a th:if="${user != null}"
+								th:href="@{'/user/addtocart?pid=' + ${product.id} + '&uid=' + ${user.id}}"
+								class="btn btn-success text-white">
+								<h5 class="mb-0">Add to Cart</h5>
+							</a>
+						</th:block>
 
-						<!-- If the product is out of stock, show the "Out of Stock" anchor tag -->
-						<a th:unless="${product.stock > 0}" href="#"
+						<!-- If the product is out of stock, show the "Out of Stock" button -->
+						<a th:if="${product.stock <= 0}" href="#"
 							class="btn btn-warning text-white disabled">
 							<h5 class="mb-0">Out of Stock</h5>
 						</a>
 
-						
-							<a href="/products" class="text-decoration-none btn btn-outline-success">Back To
-								Products</a>
-					
+						<!-- Back to Products link -->
+						<a href="/products"
+							class="text-decoration-none btn btn-outline-success">Back To
+							Products</a>
 					</div>
+
 				</div>
 			</div>
 		</div>
