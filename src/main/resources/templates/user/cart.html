@@ -36,7 +36,7 @@
 						<td>[[${item.product.discountedPrice}]]</td>
 
 					<td><span class="badge badge-warning rounded-pill d-inline">[[${item.quantity}]]</span></td>
-					<td>[[${item.totalPrice}]]</td>
+					<td>&#8377; [[${item.totalPrice}]]</td>
 						<td><a 
 							class="btn btn-link btn-rounded btn-sm fw-bold"
 							data-mdb-ripple-color="dark"> Edit </a></td>
@@ -46,31 +46,25 @@
 						
 					</tr>
 					<tr>
-						<td>1</td>
+						
 						<td>
-							<div class="d-flex align-items-center">
-								<img src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-									class="rounded" alt="" style="width: 45px; height: 45px" />
-							</div>
+							[[${totalItems}]]
 						</td>
+						<td></td>
 						<td>
-							<p class="fw-normal mb-1">Categories</p>
+							<p class="fw-normal mb-1">--------</p>
 						</td>
-						<td>Not-Active
+						<td>--------
 						</td>
-						<td><span class="badge badge-warning  d-inline">Not-Active</span>
+						<td><span class="badge badge-warning  d-inline fs-4">Total price</span>
 						</td>
-						<td>Total Price  
+						<td class="fs-4">&#8377; [[${totalOrderdAmount}]] 
 						</td>
 						<td>
-							<button type="button"
-								class="btn btn-link btn-rounded btn-sm fw-bold"
-								data-mdb-ripple-color="dark">Edit</button>
+							
 						</td>
 						<td>
-							<button type="button"
-								class="btn btn-link btn-rounded btn-sm fw-bold"
-								data-mdb-ripple-color="dark">Delete</button>
+							
 						</td>
 					</tr>
 

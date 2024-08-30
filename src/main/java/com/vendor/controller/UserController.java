@@ -74,14 +74,24 @@ public class UserController {
 	}
 	
 	@GetMapping("/cart")
-	public String ShowCart(Principal p,Model m) {
-		
-		UserData user= getLoggedInUserData(p);
-		List<Cart> cartItems = cartService.getCartByUser(user.getId());
-		m.addAttribute("cartItems",cartItems);
-		return "user/cart";	
+	public String ShowCart(Principal p, Model m) {
+	    UserData user = getLoggedInUserData(p);
+	    List<Cart> cartItems = cartService.getCartByUser(user.getId());
+	    
+	    // Add cart items to the model
+	    m.addAttribute("cartItems", cartItems);
+	    
+	    // Calculate the total ordered amount
+	    Double totalOrderdAmount = cartItems.get(cartItems.size() - 1).getTotalOrderdAmount();
+	    m.addAttribute("totalOrderdAmount", totalOrderdAmount);
+	    
+	    // Calculate and add the total number of items to the model
+	    int totalItems = cartItems.size();
+	    m.addAttribute("totalItems", totalItems);
+	    
+	    return "user/cart";
 	}
-	
+
 	
 
 }
