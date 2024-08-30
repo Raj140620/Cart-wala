@@ -50,10 +50,30 @@
 				<li class="nav-item"><a class="nav-link" href="#customers">Customers</a>
 				</li>
 			</ul>
-			<button class="btn  rounded-pill" data-bs-toggle="modal"
+			
+
+			<th:block th:if="${user == null}">
+				<button class="btn  rounded-pill" data-bs-toggle="modal"
 				data-bs-target="#stylishModal" style="background-color: #FFA500">
 				Login <i class="fa-solid fa-user"></i>
 			</button>
+			</th:block>
+
+			<th:block th:unless="${user == null}">
+				<div class="dropdown">
+					<a class="btn text-light border rounded-pill dropdown-toggle"
+						href="#" role="button" id="userDropdown" data-bs-toggle="dropdown"
+						aria-expanded="false"> [[${user.name}]] <i
+						class="fa-solid fa-user"></i>
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="userDropdown">
+						<li><a class="dropdown-item" href="/profile">Profile</a></li>
+						<li><a class="dropdown-item" href="/settings">Settings</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="/logout">Logout</a></li>
+					</ul>
+				</div>
+			</th:block>
 
 
 			<!-- Modal -->
@@ -253,11 +273,11 @@
 			th:classappend="'box box' + (${iterStat.index+1})">
 			<img loading="lazy"
 				th:src="@{'/uploads/img/category_img/'+${c.imagename}}"
-				alt="fruits-image" />
-		<span class="text-muted ">Dynamic </span>	<h2>[[${c.name}]]</h2>
-			<span>17 Items</span> 
-			<a th:href="@{'/products?category='+${c.name}}"><i class="fa-solid fa-arrow-right "></i></a>
-			
+				alt="fruits-image" /> <span class="text-muted ">Dynamic </span>
+			<h2>[[${c.name}]]</h2>
+			<span>17 Items</span> <a th:href="@{'/products?category='+${c.name}}"><i
+				class="fa-solid fa-arrow-right "></i></a>
+
 		</div>
 
 
@@ -280,16 +300,19 @@
 	<div class="products-container">
 		<!-- Box - 1 -->
 		<div class="box" th:each="prod: ${products}">
-			<img loading="lazy"   th:src="@{'/uploads/img/product_img/'+${prod.imageName}}"
+			<img loading="lazy"
+				th:src="@{'/uploads/img/product_img/'+${prod.imageName}}"
 				alt="apple-image" /> <span>Fresh Items</span>
 			<h2>
 				[[${prod.title}]]<br /> Kashmir Apples
 			</h2>
 			<h3 class="price">
-				&#8377; [[${prod.discountedPrice}]]<span class="text-warning text-decoration-line-through" > &#8377; [[${prod.price}]]  </span>
+				&#8377; [[${prod.discountedPrice}]]<span
+					class="text-warning text-decoration-line-through"> &#8377;
+					[[${prod.price}]] </span>
 			</h3>
-			<i class="fa-solid fa-cart-shopping"></i> <i
-				class=""></i> <span class="discount">-[[${prod.discount}]]%</span>
+			<i class="fa-solid fa-cart-shopping"></i> <i class=""></i> <span
+				class="discount">-[[${prod.discount}]]%</span>
 		</div>
 		<!-- Box - 1 -->
 		<div class="box">
