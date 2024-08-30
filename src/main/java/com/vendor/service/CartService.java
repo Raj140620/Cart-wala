@@ -10,4 +10,5 @@ public interface CartService {
 	
 	public List<Cart> getCartByUser(Integer userId);
 
+	public Integer getCartCount(Integer userId);
 }

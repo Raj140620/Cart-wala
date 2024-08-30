@@ -1,6 +1,7 @@
 package com.vendor.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,15 +35,21 @@ public class UserController {
 		if (p!=null) {
 			String email=p.getName();
 			UserData userData=userService.getUserByEmail(email);
+			Integer cartCount = cartService.getCartCount(userData.getId());
 			m.addAttribute("user", userData);
+			m.addAttribute("cartCount", cartCount);
 		}
-		
 	}
 	
 	@GetMapping("/")
 	public String home() {
 		
 		return "user/home";
+	}
+	@GetMapping("/carts")
+	public String cart() {
+		
+		return "user/cart";
 	}
 	
 	
@@ -59,5 +66,22 @@ public class UserController {
 		}
 		return "redirect:/product/"+pid;
 	}
+	
+	private UserData getLoggedInUserData(Principal p) {
+		String email=p.getName();
+		UserData userByEmail = userService.getUserByEmail(email);
+		return userByEmail;
+	}
+	
+	@GetMapping("/cart")
+	public String ShowCart(Principal p,Model m) {
+		
+		UserData user= getLoggedInUserData(p);
+		List<Cart> cartItems = cartService.getCartByUser(user.getId());
+		m.addAttribute("cartItems",cartItems);
+		return "user/cart";	
+	}
+	
+	
 
 }

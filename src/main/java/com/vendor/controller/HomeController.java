@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.vendor.model.Category;
 import com.vendor.model.Product;
 import com.vendor.model.UserData;
+import com.vendor.service.CartService;
 import com.vendor.service.CategoryService;
 import com.vendor.service.ProductService;
 import com.vendor.service.UserService;
@@ -53,13 +54,18 @@ public class HomeController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private CartService cartService;
+	
 	@ModelAttribute
 	public void getUserDetails(Principal p,Model m) {
 		
 		if (p!=null) {
 			String email=p.getName();
 			UserData userData=userService.getUserByEmail(email);
+			Integer cartCount = cartService.getCartCount(userData.getId());
 			m.addAttribute("user", userData);
+			m.addAttribute("cartCount", cartCount);
 		}
 		
 	}
