@@ -17,7 +17,7 @@ public class SecurityConfig {
 
 	@Autowired
 	private AuthenticationSuccessHandler authenticationSuccessHandler;
-	
+
 	@Autowired
 	@Lazy
 	private AuthFailureHandlerImpl authenticationFailureHandler;
@@ -29,44 +29,47 @@ public class SecurityConfig {
 
 	@Bean
 	public UserDetailsService userDetailsService() {
-
 		return new UserDetailsServiceImpl();
-
 	}
 
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
-
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 		authenticationProvider.setUserDetailsService(userDetailsService());
 		authenticationProvider.setPasswordEncoder(passwordEncoder());
-
 		return authenticationProvider;
 	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-	    http.csrf(csrf -> csrf.disable())
-	        .cors(cors -> cors.disable())
-	        .authorizeHttpRequests(req -> req
-	            .requestMatchers("/admin/**").hasRole("ADMIN")  // Only ADMIN can access /admin/** URLs
-	            .requestMatchers("/user/**").hasRole("USER")    // Only USER can access /user/** URLs
-	            .requestMatchers("/", "/products", "/product/**").hasAnyRole("USER", "ANONYMOUS") // Restrict ADMIN from accessing "/", but allow USER and others
-	            .requestMatchers("/**").permitAll()             // Permit all other requests (non-admin and non-product URLs)
-	        )
-	        .formLogin(form -> form
-	            .loginPage("/signin")
-	            .loginProcessingUrl("/login")
-	            //.defaultSuccessUrl("/")
-	            .failureHandler(authenticationFailureHandler)
-	            .successHandler(authenticationSuccessHandler)
-	        )
-	        .logout(logout -> logout.permitAll());
+		http.csrf(csrf -> csrf.disable())
+				.cors(cors -> cors.disable())
+				.authorizeHttpRequests(req -> req
+						.requestMatchers("/admin/**").hasRole("ADMIN") // Only ADMIN can access /admin/** URLs
+						.requestMatchers("/user/**").hasRole("USER") // Only USER can access /user/** URLs
+						.requestMatchers("/", "/products", "/product/**").hasAnyRole("USER", "ANONYMOUS") // Restrict
+																											// ADMIN
+																											// from
+																											// accessing
+																											// "/", but
+																											// allow
+																											// USER and
+																											// others
+						.requestMatchers("/**").permitAll() // Permit all other requests
+				)
+				.formLogin(form -> form
+						.loginPage("/signin")
+						.loginProcessingUrl("/login")
+						.failureHandler(authenticationFailureHandler)
+						.successHandler(authenticationSuccessHandler))
+				.logout(logout -> logout.permitAll())
+				.exceptionHandling(exception -> exception
+						.accessDeniedHandler((request, response, accessDeniedException) -> {
+							// Redirect to custom error page
+							response.sendRedirect("/access-denied");
+						}));
 
-	    return http.build();
+		return http.build();
 	}
-
-
-
 }
