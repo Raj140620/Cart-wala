@@ -80,7 +80,9 @@ public class UserController {
 	    
 	    // Add cart items to the model
 	    m.addAttribute("cartItems", cartItems);
-	    
+	    if (cartItems.size()>0) {
+			
+		
 	    // Calculate the total ordered amount
 	    Double totalOrderdAmount = cartItems.get(cartItems.size() - 1).getTotalOrderdAmount();
 	    m.addAttribute("totalOrderdAmount", totalOrderdAmount);
@@ -88,8 +90,19 @@ public class UserController {
 	    // Calculate and add the total number of items to the model
 	    int totalItems = cartItems.size();
 	    m.addAttribute("totalItems", totalItems);
-	    
+	    }
+	    else {
+		    m.addAttribute("msg","No items in your cart");
+
+		}
 	    return "user/cart";
+	   
+	}
+	
+	@GetMapping("/cartQtyUpdate")
+	public String updateCartQty(@RequestParam String sy,@RequestParam Integer cid) {
+		cartService.updateQty(sy,cid);
+		return "redirect:/user/cart";
 	}
 
 	

@@ -11,6 +11,7 @@ import com.vendor.model.Cart;
 import com.vendor.model.Product;
 import com.vendor.model.UserData;
 import com.vendor.repository.CartRepository;
+import com.vendor.repository.CategoryRepository;
 import com.vendor.repository.ProductRepository;
 import com.vendor.repository.UserRepository;
 import com.vendor.service.CartService;
@@ -82,5 +83,27 @@ public class CartServiceImpl implements CartService {
 		Integer countByUserId = cartRepository.countByUserId(userId);
 		return countByUserId;
 	}
+
+	@Override
+	public void updateQty(String sy, Integer cid) {
+
+	    Cart cart = cartRepository.findById(cid).orElseThrow(() -> new RuntimeException("Cart not found"));
+	    int updatedQty = cart.getQuantity();
+
+	    if (sy.equalsIgnoreCase("mi")) {
+	        updatedQty -= 1;
+
+	        if (updatedQty <= 0) {
+	            cartRepository.deleteById(cid);
+	            return;
+	        }
+	    } else {
+	        updatedQty += 1;
+	    }
+
+	    cart.setQuantity(updatedQty);
+	    cartRepository.save(cart);
+	}
+
 
 }
