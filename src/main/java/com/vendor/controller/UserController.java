@@ -92,7 +92,7 @@ public class UserController {
 	    m.addAttribute("totalItems", totalItems);
 	    }
 	    else {
-		    m.addAttribute("msg","No items in your cart");
+		    m.addAttribute("msg","No items in your cart ");
 
 		}
 	    return "user/cart";
@@ -103,6 +103,12 @@ public class UserController {
 	public String updateCartQty(@RequestParam String sy,@RequestParam Integer cid) {
 		cartService.updateQty(sy,cid);
 		return "redirect:/user/cart";
+	}
+	
+	@GetMapping("/order")
+	public String orderUi() {
+		
+		return "user/order";
 	}
 
 	
