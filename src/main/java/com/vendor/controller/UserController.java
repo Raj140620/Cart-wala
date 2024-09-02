@@ -121,8 +121,7 @@ public class UserController {
 		
 		UserData user=getLoggedInUserData(p);
 		orderService.saveOrder(user.getId(), request);
-		
-		System.out.println(request);
+
 		
 		return "/user/paymentSuccess";
 	}
