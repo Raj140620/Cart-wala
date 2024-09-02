@@ -9,12 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vendor.model.Cart;
+import com.vendor.model.OrderRequest;
 import com.vendor.model.UserData;
 import com.vendor.service.CartService;
+import com.vendor.service.OrderService;
 import com.vendor.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +31,9 @@ public class UserController {
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@ModelAttribute
 	public void getUserDetails(Principal p,Model m) {
@@ -109,6 +115,16 @@ public class UserController {
 	public String orderUi() {
 		
 		return "user/order";
+	}
+	@PostMapping("/saveorder")
+	public String saveOrder(@ModelAttribute OrderRequest request,Principal p) {
+		
+		UserData user=getLoggedInUserData(p);
+		orderService.saveOrder(user.getId(), request);
+		
+		System.out.println(request);
+		
+		return "/user/paymentSuccess";
 	}
 
 	
