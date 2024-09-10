@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Maps port 8080 on the host to port 8080 on the container
+    # environment:
+    #   - DB_PORT=3306
+    #   - DB_USER=raj
+    #   - DB_PASSWORD=123
+    depends_on:
+      - mysql
+  
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    ports:
+      - "3306:3306"  # Maps port 3306 on the host to port 3306 on the container
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_USER: raj
+      MYSQL_PASSWORD: 123
+#     volumes:
+#       - mysql-data:/var/lib/mysql  # Persist data to avoid losing data on container restart
+  
+
+# # volumes:
+# #   mysql-data:
+# #     driver: local

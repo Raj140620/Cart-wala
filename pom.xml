@@ -80,8 +80,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-			
 		</dependency>
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-docker-compose -->
+        <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-docker-compose</artifactId>
+        </dependency>
+
 
 
 	</dependencies>
@@ -91,9 +98,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
+				<!--<configuration>
 				<executable>true</executable>
-				</configuration>
+				</configuration>-->
 			</plugin
 			>
 		</plugins>
