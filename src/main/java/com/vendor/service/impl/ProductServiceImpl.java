@@ -3,6 +3,9 @@ package com.vendor.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -56,5 +59,40 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return products;
 	}
+
+	
+	
+	
+	//product search
+	@Override
+	public List<Product> searchProduct(String st) {
+
+
+		return productRepository.findByTitleContainingIgnoreCaseOrCategoryContainingIgnoreCase(st, st);
+	}
+
+	
+	//Pagination
+	@Override
+	public Page<Product> getAllActiveProductPagination(Integer pageNo, Integer pageSize,String category) {
+		
+		Pageable pagable= PageRequest.of(pageNo, pageSize);
+		Page<Product> pageProduct=null;
+		
+		if (ObjectUtils.isEmpty(category)) {
+			pageProduct= productRepository.findByIsActiveTrue(pagable);
+		} else {
+			pageProduct= productRepository.findByCategory(pagable,category);
+
+		}
+		return pageProduct;
+	}
+
+	@Override
+	public Page<Product> searchProductWithPagination(String st, int pageNo, int pageSize) {
+	    Pageable pageable = PageRequest.of(pageNo, pageSize);
+	    return productRepository.findByTitleContainingIgnoreCaseOrCategoryContainingIgnoreCase(st, st, pageable);
+	}
+
 
 }

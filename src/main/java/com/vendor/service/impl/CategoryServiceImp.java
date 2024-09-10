@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.vendor.model.Category;
+import com.vendor.model.UserData;
 import com.vendor.repository.CategoryRepository;
 import com.vendor.service.CategoryService;
 
@@ -61,6 +62,12 @@ public class CategoryServiceImp implements CategoryService {
 	public List<Category> getAllActiveCategory() {
 	List<Category> categories=	categoryRepository.findByIsActiveTrue();
 		return categories;
+	}
+
+	@Override
+	public List<Category> getCategoriesByUser(UserData currentUser) {
+		
+		return categoryRepository.findByStoredBy(currentUser);
 	}
 
 }

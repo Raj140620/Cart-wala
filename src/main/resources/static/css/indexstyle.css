@@ -141,7 +141,7 @@ img {
 	background-image: none;
 	width: 30px;
 	height: 2px;
-	background-color: var(--bg-color);
+	background-color: var(--orange-color);
 	position: relative;
 	transition: all 0.3s ease;
 	border: none;
@@ -151,7 +151,7 @@ img {
 	content: '';
 	width: 30px;
 	height: 2px;
-	background-color:var(--bg-color);
+	background-color: var(--orange-color);
 	position: absolute;
 	left: 0;
 	transition: all 0.3s ease;
@@ -280,7 +280,8 @@ header .carousel-inner .carousel-item {
 	text-transform: uppercase;
 	border-radius: 25px;
 	text-decoration: none;
-	&:hover
+	
+	hover
 	{
 	background
 	:
@@ -401,7 +402,7 @@ header .carousel-inner .carousel-item {
 	background: #faeaea;
 }
 
-.box4,.box6 {
+.box4, .box6 {
 	background: #eeeef9;
 }
 
@@ -418,7 +419,7 @@ header .carousel-inner .carousel-item {
 
 .products-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, auto));
+	grid-template-columns: repeat(auto-fit, minmax(260px, 310px));
 	gap: 1rem;
 	margin-top: 2rem;
 }
@@ -429,6 +430,8 @@ header .carousel-inner .carousel-item {
 	border-radius: 0.5rem;
 	position: relative;
 }
+
+
 
 .products-container .box img {
 	width: 100%;
@@ -666,6 +669,7 @@ header .carousel-inner .carousel-item {
 .copyright {
 	text-align: center;
 	padding: 20px;
+	margin-top: auto;
 }
 
 /* Responsive Part */
@@ -812,4 +816,178 @@ header .carousel-inner .carousel-item {
 	.categories-container {
 		gap: 1.5em;
 	}
+}
+
+/* 
+here is the search box */
+
+/* Basic search bar styling */
+
+.search-form{
+	
+	position: sticky;
+	top: 1rem;
+	z-index: 9999;
+}
+
+.search-bar {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	max-width: 100%;
+	
+}
+
+/* Search input styling */
+.search-input {
+	flex: 1;
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #ccc;
+	border-right: none;
+	border-radius: 15px 0 0 15px;
+	outline: none;
+	transition: border 0.3s ease, box-shadow 0.3s ease;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* On focus, change the border color and shadow */
+.search-input:focus {
+	border-color: #28a745;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Search button styling */
+.search-button {
+	background-color: #28a745;
+	border: 4px solid #28a745;
+	padding: 10px;
+	font-size: 18px;
+	color: white;
+	cursor: pointer;
+	border-radius: 0 15px 15px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s ease, box-shadow 0.3s ease;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Button hover effect */
+.search-button:hover {
+	background-color: #218838;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design */
+@media ( max-width : 768px) {
+	.search-bar {
+		flex-direction: row;
+		width: 100%;
+	}
+	.search-input {
+		flex: 1;
+		margin-bottom: 0;
+	}
+	.search-button {
+		flex: 0;
+		width: auto;
+	}
+}
+
+/* FontAwesome icon styling */
+.search-button i {
+	margin-left: 5px;
+}
+
+  /* pagination */
+/* Pagination Section */
+.pagination,
+.page-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pagination {
+  margin-top: 10px;
+}
+
+/* Navigation and Page Buttons */
+.btn-nav,
+.btn-page {
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.btn-nav {
+  padding: 8px;
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid #087f5b;
+  color: #087f5b;
+}
+
+.btn-page {
+  border: none;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+}
+
+.btn-nav:hover,
+.btn-page:hover {
+  background-color: var(--orange-color);
+  color: #fff;
+}
+
+/* Selected Page */
+.btn-selected {
+  background-color: var(--green-color);
+  color: #fff;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .pagination {
+    margin-top: 8px; /* Reduce margin for smaller screens */
+    gap: 8px; /* Reduce gap between pagination elements */
+  }
+
+  .btn-nav {
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    font-size: 14px;
+    border-width: 1px; /* Slightly thinner border */
+  }
+
+  .btn-page {
+    width: 32px;
+    height: 32px;
+    font-size: 14px; /* Reduce font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    margin-top: 4px; /* Further reduce margin for mobile */
+    gap: 4px; /* Minimal gap on small screens */
+  }
+
+  .btn-nav {
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+    font-size: 12px; /* Smaller font for mobile */
+    border-width: 1px;
+  }
+
+  .btn-page {
+   	padding: 6px 0px 0px 1px;
+    height: 35px;
+    font-size: 16px; /* Further reduce font size */
+  }
 }

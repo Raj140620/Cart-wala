@@ -3,6 +3,7 @@ package com.vendor.config;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -18,47 +19,47 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class AuthFailureHandlerImpl extends SimpleUrlAuthenticationFailureHandler{
+public class AuthFailureHandlerImpl extends SimpleUrlAuthenticationFailureHandler {
 
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException {
-		String email = request.getParameter("username");
+    @Autowired
+    private UserService userService;
 
-		UserData userData = userRepository.findByEmail(email);
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
+        String email = request.getParameter("username");
 
-		if (userData.getIsEnabled()) {
+        UserData userData = userRepository.findByEmail(email);
 
-			if (userData.getAccountNotLocked()) {
+        if (userData == null) {
+            exception = new BadCredentialsException("User does not exist or bad credentials");
+        } else if (userData.getIsEnabled()) {
 
-				if (userData.getFailedAttempt() < AppConstant.ATTEMPT_TIME) {
-					userService.increaseFailedAttempt(userData);
-				} else {
-					userService.userAccountLock(userData);
-					exception = new LockedException("Your account is locked !! To many attempts");
-				}
-			} else {
+            if (userData.getAccountNotLocked()) {
 
-				if (userService.unlockAccountTimeExpired(userData)) {
-					exception = new LockedException("Your account is unlocked !! Please try to login");
-				} else {
-					exception = new LockedException("your account is temporarily Locked");
-				}
-			}
+                if (userData.getFailedAttempt() < AppConstant.ATTEMPT_TIME) {
+                    userService.increaseFailedAttempt(userData);
+                } else {
+                    userService.userAccountLock(userData);
+                    exception = new LockedException("Your account is locked! Too many attempts");
+                }
+            } else {
 
-		} else {
-			exception = new LockedException("Your account is In-active");
-		}
-		super.setDefaultFailureUrl("/signin?error");
-		super.onAuthenticationFailure(request, response, exception);
-	}
-	
-	
+                if (userService.unlockAccountTimeExpired(userData)) {
+                    exception = new LockedException("Your account is unlocked! Please try to login");
+                } else {
+                    exception = new LockedException("Your account is temporarily locked");
+                }
+            }
 
+        } else {
+            exception = new LockedException("Your account is inactive");
+        }
+
+        super.setDefaultFailureUrl("/signin?error");
+        super.onAuthenticationFailure(request, response, exception);
+    }
 }

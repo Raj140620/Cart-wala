@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.vendor.model.Category;
 import com.vendor.model.Product;
+import com.vendor.model.ProductOrder;
 import com.vendor.model.UserData;
 import com.vendor.service.CategoryService;
+import com.vendor.service.OrderService;
 import com.vendor.service.ProductService;
 import com.vendor.service.UserService;
+import com.vendor.util.CommonUtil;
+import com.vendor.util.OrderStatus;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -39,19 +45,25 @@ public class AdminController {
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private OrderService orderService;
 	
+	@Autowired
+	private CommonUtil commonUtil;
+
 	@ModelAttribute
-	public void getUserDetails(Principal p,Model m) {
-		
-		if (p!=null) {
-			String email=p.getName();
-			UserData userData=userService.getUserByEmail(email);
+	public void getUserDetails(Principal p, Model m) {
+
+		if (p != null) {
+			String email = p.getName();
+			UserData userData = userService.getUserByEmail(email);
 			m.addAttribute("user", userData);
 		}
-		
+
 	}
 
 	@GetMapping("/")
@@ -59,19 +71,43 @@ public class AdminController {
 
 		return "admin/index";
 	}
-	
 
 	@GetMapping("/category")
-	public String category(Model m) {
-		m.addAttribute("categories", categoryService.getAllCategory());
-
+	public String category(Model m,Principal principal) {
+		 // Retrieve the logged-in user's email (assuming email is the username)
+	    String userEmail = principal.getName();
+	    
+	    // Fetch the current user from the database
+	    UserData currentUser = userService.getUserByEmail(userEmail);  // Assuming you have th
+		
+	    // Fetch only the categories entered by this user
+	    List<Category> userCategories = categoryService.getCategoriesByUser(currentUser);
+		
+		//m.addAttribute("categories", categoryService.getAllCategory());
+		m.addAttribute("categories", userCategories);
+		
 		return "admin/add-category";
 	}
 
 	@PostMapping("/savecategory")
 	public String saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,
-			HttpSession session) throws IOException {
+			HttpSession session,Principal principal) throws IOException {
+		
 
+	    // Retrieve the logged-in user from the principal (or session if necessary)
+	    String userEmail = principal.getName();  // Assuming email is used as the username
+	    UserData currentUser = userService.getUserByEmail(userEmail);  // Fetch the current user from your UserService
+
+	    // Set the user who is saving the category
+	    category.setStoredBy(currentUser);
+		
+		
+		
+		
+		
+		
+		
+		
 		String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
 		category.setImagename(imageName);
 
@@ -327,32 +363,87 @@ public class AdminController {
 
 		return "redirect:/admin/viewproducts";
 	}
-	
-	
-	//user details
-	
+
+	// user details
+
 	@GetMapping("/getusers")
 	public String getAllUsers(Model m) {
-		
+
 		List<UserData> users = userService.getUsers("ROLE_USER");
-		m.addAttribute("users",users);
-		
+		m.addAttribute("users", users);
+
 		return "admin/users";
 	}
-	
+
 	@GetMapping("/updatestatus")
-	public String updateUserAccountStatus(@RequestParam Boolean status,@RequestParam Integer id,HttpSession session) {
-		
-		
-		Boolean f=userService.updateAccountStatus(status,id);
+	public String updateUserAccountStatus(@RequestParam Boolean status, @RequestParam Integer id, HttpSession session) {
+
+		Boolean f = userService.updateAccountStatus(status, id);
 		if (f) {
-			session.setAttribute("successMsg","Status changed of id:"+id);
-		}
-		else {
+			session.setAttribute("successMsg", "Status changed of id:" + id);
+		} else {
 			session.setAttribute("errorMsg", "Something went wrong");
 		}
-		
-		
+
 		return "redirect:/admin/getusers";
 	}
+
+	// order related apis
+	@GetMapping("/orders")
+	public String getAllOrders(Model m) {
+		List<ProductOrder> allOrders = orderService.getAllOrders();
+		List<OrderStatus> orderStatuses = Arrays.asList(OrderStatus.values());
+		m.addAttribute("orderStatuses", orderStatuses);
+
+		m.addAttribute("orders", allOrders);
+		return "admin/orders";
+	}
+	
+	// Update the order status 
+	
+	@PostMapping("/update-order-status")
+	public String updateOrderStatus(
+	        @RequestParam(required = false) Integer id,
+	        @RequestParam Integer st,
+	        HttpServletRequest request,
+	        HttpSession session) {
+	    
+	    // Redirect to the same page if id is null
+	    if (id == null) {
+	        session.setAttribute("errorMsg", "Order ID is missing.");
+	        return "redirect:" + request.getRequestURL().toString();
+	    }
+
+	    // Find the status name by its id
+	    OrderStatus[] values = OrderStatus.values();
+	    String status = null;
+
+	    for (OrderStatus ordSt : values) {
+	        if (ordSt.getId().equals(st)) {
+	            status = ordSt.getName();
+	            break;
+	        }
+	    }
+	    ProductOrder updateOrder = orderService.updateOrderStatus(id, status);
+		try {
+			commonUtil.sendMailForProductOrder(updateOrder, status);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		// Update the order status if the id is valid
+		if (!ObjectUtils.isEmpty(updateOrder)) {
+			session.setAttribute("successMsg", "Order is Updated :"+status);
+		}
+		else {
+			
+				session.setAttribute("errorMsg","Unable Updated :"+ status);
+			
+		}
+
+	    return "redirect:/admin/orders";
+	}
+
 }
